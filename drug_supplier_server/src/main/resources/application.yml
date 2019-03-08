@@ -6,7 +6,7 @@ eureka:
       defaultZone: http://localhost:8081/eureka/
 spring:
   application:
-    name: supplier-server
+    name: service-order
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
