@@ -12,6 +12,9 @@
         <module>drug_common</module>
         <module>drug_eureka</module>
         <module>drug_supplier_api</module>
+        <module>drug_agency_web</module>
+        <module>drug_agency_server</module>
+        <module>drug_agency_api</module>
     </modules>
 
 
