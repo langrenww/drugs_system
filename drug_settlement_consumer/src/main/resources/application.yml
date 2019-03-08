@@ -1,0 +1,15 @@
+
+
+server:
+     port: 8093
+eureka:
+     client:
+       serviceUrl:
+         defaultZone: http://localhost:8081/eureka/
+spring:
+     application:
+        name: settlement-fegin
+     thymeleaf:
+        encoding: UTF-8
+        servlet:
+          content-type: text/html
