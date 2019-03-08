@@ -11,6 +11,7 @@
     <modules>
         <module>drug_common</module>
         <module>drug_eureka</module>
+        <module>drug_supplier_api</module>
     </modules>
 
 
