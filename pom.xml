@@ -11,6 +11,9 @@
     <modules>
         <module>drug_common</module>
         <module>drug_eureka</module>
+        <module>drug_fegin_return_slip</module>
+        <module>drug_return_slip_api</module>
+        <module>drug_return_slip_server</module>
     </modules>
 
 
