@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DrugChangePasswordConsumerApplication {
+public class DrugTreeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DrugChangePasswordConsumerApplication.class, args);
+        SpringApplication.run(DrugTreeApplication.class, args);
     }
 
 }

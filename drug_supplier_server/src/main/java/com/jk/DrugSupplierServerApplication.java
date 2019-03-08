@@ -1,18 +1,18 @@
 package com.jk;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients
-public class DrugAgencyWebApplication {
+@MapperScan("com.jk.dao")
+public class DrugSupplierServerApplication {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(DrugAgencyWebApplication.class, args);
+        SpringApplication.run(DrugSupplierServerApplication.class, args);
     }
 
 }

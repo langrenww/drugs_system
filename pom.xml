@@ -14,6 +14,13 @@
         <module>drug_settlement_service_api</module>
         <module>drug_common</module>
         <module>drug_eureka</module>
+        <module>drug_supplier_api</module>
+        <module>drug_agency_web</module>
+        <module>drug_agency_server</module>
+        <module>drug_agency_api</module>
+        <module>drug_change_password_api</module>
+        <module>drug_change_password_server</module>
+        <module>drug_change_password_web</module>
     </modules>
 
 

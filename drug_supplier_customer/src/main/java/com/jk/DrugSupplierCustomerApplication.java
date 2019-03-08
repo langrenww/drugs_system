@@ -7,12 +7,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients
-public class DrugAgencyWebApplication {
+@EnableFeignClients //识别项目中的feignClient注解
+public class DrugSupplierCustomerApplication {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(DrugAgencyWebApplication.class, args);
+        SpringApplication.run(DrugSupplierCustomerApplication.class, args);
     }
 
 }
