@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.jk</groupId>
-            <artifactId>drug_settlement_service</artifactId>
+            <artifactId>drug_settlement_service_api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
