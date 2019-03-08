@@ -6,4 +6,4 @@ eureka:
       defaultZone: http://localhost:8081/eureka/
 spring:
   application:
-    name: supplier-customer
+    name: order-feign
