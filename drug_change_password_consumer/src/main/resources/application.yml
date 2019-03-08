@@ -1,0 +1,14 @@
+server:
+  port: 8083
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+spring:
+  #thymeleaf:
+  # encoding: UTF-8
+  #servlet:
+  # content-type: text/html
+
+  application:
+    name: order-feign
