@@ -14,7 +14,8 @@ public class SupplierDrug {
     private String stocks;//药品库存
     private String manufacturer;//生产厂家
     private String  drugImg;//药品图片
-    private String  buyStatus;//购买状态
+    private Integer  buyStatus;//购买状态
+    private String  buyCount;//购买数量
     private String  drugMnemonicCode;//助记码
     private String  drugLicenseNumber;//批准文号
     private String  drugNumber;//药品编号
@@ -47,12 +48,19 @@ public class SupplierDrug {
     private String  auditType;//审核状态
     private String  issuedStatus;//发布状态
 
+    public String getBuyCount() {
+        return buyCount;
+    }
 
-    public String getBuyStatus() {
+    public void setBuyCount(String buyCount) {
+        this.buyCount = buyCount;
+    }
+
+    public Integer getBuyStatus() {
         return buyStatus;
     }
 
-    public void setBuyStatus(String buyStatus) {
+    public void setBuyStatus(Integer buyStatus) {
         this.buyStatus = buyStatus;
     }
 
