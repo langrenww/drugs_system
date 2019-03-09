@@ -5,8 +5,8 @@ public class BankCard {
     private String   bankName;           //开户银行
     private Integer  bankCardNumber;     //银行卡号
     private Integer  paymentPassword;    //支付密码
-    private Integer  cardholderName;     //持卡人
-    private String   phoneNumber;        //手机号
+    private String  cardholderName;     //持卡人
+    private Integer   phoneNumber;        //手机号
 
     public Integer getBankId() {
         return bankId;
@@ -40,19 +40,19 @@ public class BankCard {
         this.paymentPassword = paymentPassword;
     }
 
-    public Integer getCardholderName() {
+    public String getCardholderName() {
         return cardholderName;
     }
 
-    public void setCardholderName(Integer cardholderName) {
+    public void setCardholderName(String cardholderName) {
         this.cardholderName = cardholderName;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
