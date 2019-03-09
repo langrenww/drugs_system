@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap-table/bootstrap-table.css">
+    <script src="../js/bootstrap-table/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+    <script src="../js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/bootstrap-bootbox/bootbox.js"></script>
+</head>
+<body>
+<select>
+    <option value="0">请选择</option>
+    <option value="1">供应商1</option>
+    <option value="2">供应商2</option>
+</select>
+<table class="table" id="myTable"></table>
+</body>
+<script type="text/javascript">
+    $(function(){
+        initUserTable();//初始化用户表格数据
+    })
+
+
+
+    //初始化用户表格数据
+    function initUserTable(){
+        $('#myTable').bootstrapTable({
+            toolbar:'#toolbar',
+            url:"SupplierFind",
+            striped:true,//显示条纹状表格
+            queryParams:function(){
+                return {
+
+                }
+            },
+            columns:[
+                {field:"check",checkbox:true},
+                {field:"drugImg",title:"药品图片"},
+                {field:"id",title:"药品id",},
+                {field:"name",title:"药品名称",},
+                {field:"price",title:"药品单价"},
+                {field:"specification",title:"规格"},
+                {field:"productionDate",title:"生产时间"},
+                {field:"quantity",title:"中包装数量"},
+                {field:"stocks",title:"药品库存"},
+                {field:"manufacturer",title:"生产厂家"},
+                {field:"buyCount",title:"购买数量"},
+           {field:"buyStatus",title:"购买状态",
+              formatter:function(value,row,index){
+              if(value==1){
+                return   "<a href='javascript:DeleteUser()'>加入购物车</a>";
+              }else{
+               return    "<a href='javascript:DeleteUser()'>继续购买</a>";
+              }
+          }}
+            ]
+        })
+    }
+</script>
+</html>
