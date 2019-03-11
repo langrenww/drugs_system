@@ -3,6 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.dao.ProductMapper">
+<insert id="saveAgencyInfo" parameterType="com.jk.pojo.ProductAgency">
+insert into drug_agency_product(product_name,product_common_name,product_brand,
+product_distribution_channel,product_message_valid_period,product_photo,
+demand_describe,product_linkman,contact_phone,contact_address,rc_district_id
+)
+VALUES(
+#{productName},#{productCommonName},#{productBrand},#{productDistributionChannel},#{productMessageValidPeriod},
+#{productPhoto},#{demandDescribe},
+#{productLinkman},#{contactPhone},#{contactAddress},#{drugTypeName}
+)
 
+
+</insert>
+<select id="queryAgencyInfo" resultType="com.jk.pojo.ProductAgencyDto">
+select d.product_name productName,d.product_linkman productLinkman,d.contact_phone contactPhone,r.district agencyCity,r2.district agencyProvince from drug_agency_product d,drug_rc_district r,drug_rc_district r2 where
+ d.rc_district_id=r.id and r.pid=r2.id
+</select>
 </mapper>
     
