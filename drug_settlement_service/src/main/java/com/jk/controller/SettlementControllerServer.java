@@ -41,6 +41,11 @@ public class SettlementControllerServer implements SettlementService {
     public void saveBankCard(@RequestBody BankCard bankCard) {
         settlementServiceProvider.saveBankCard(bankCard);
     }
+    /**
+     * 查询结算申请和结算记录
+     * 参数:根据订单号,商品名称,采购商,结算状态,进行条件查询
+     * @param settlement
+     */
     @PostMapping("querySettlement")
     @ResponseBody
     @Override

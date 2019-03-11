@@ -15,7 +15,7 @@ public class Settlement {
     private Integer productQuantity;//购买数
     private Integer settlementPromotion;//促销
     private Integer settlementcommission;//推广佣金
-    private Integer settlementStatus;//结算状态
+    private Integer settlementStatus;//结算状态  1待结算 2可结算 3出账中 4已出帐 5全部结算状态 6全部出账状态
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date applicationDate;//申请时间

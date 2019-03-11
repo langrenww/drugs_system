@@ -39,6 +39,12 @@ public class SettlementController {
         settlementServiceConsumer.saveBankCard(bankCard);
 
     }
+
+    /**
+     * 查询结算申请和结算记录
+     * 参数:根据订单号,商品名称,采购商,结算状态,进行条件查询
+     * @param settlement
+     */
     @GetMapping("querySettlement")
     @ResponseBody
     public List<Settlement> querySettlement(Settlement settlement){

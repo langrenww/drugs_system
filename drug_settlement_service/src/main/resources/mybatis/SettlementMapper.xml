@@ -18,7 +18,19 @@
         </if>
 
         <if test="settlementStatus!=null and settlementStatus!=''">
-            and settlement.settlement_status = #{settlementStatus}
+
+            <if test="settlementStatus==5">
+                and settlement.settlement_status in(1,2)
+            </if>
+
+            <if test="settlementStatus==6">
+                and settlement.settlement_status in(3,4)
+            </if>
+
+            <if test="settlementStatus!=5 and settlementStatus!=6">
+                and settlement.settlement_status = #{settlementStatus}
+            </if>
+
         </if>
     </sql>
 
@@ -31,7 +43,7 @@
     insert into drug_bank_card(bank_name,bank_card_number,payment_password,cardholder_name,phone_number)
             values(#{bankName},#{bankCardNumber},#{paymentPassword},#{cardholderName},#{phoneNumber})
 </insert>
-
+    <!--查询结算申请和结算记录-->
     <select id="querySettlement" resultType="com.jk.pojo.Settlement">
     select
 settlement.settlement_id	  settlementId,
