@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.jk.mapper.QueryDrugByIssuedStatusMapperServer">
+   <!-- <resultMap id="QueryDrug" type="com.jk.pojo.SupplierDrug">
+        <id column="drug_id" property="id" javaType="Integer" />
+        <result  column="drug_name" property="name" javaType="String"></result>
+        <result  column="drug_mnemonic_code" property="drugMnemonicCode" javaType="String"></result>
+        <result  column="drug_commercial_specifications" property="specification" javaType="String"></result>
+        <result  column="drug_price" property="price" javaType="NUMERIC"></result>
+        <result  column="drug_supplier_id" property="supplierId" javaType="Integer"></result>
+        <result  column="drug_commercial_specifications" property="specification" javaType="String"></result>
+        <result  column="drug_production_date" property="productionDate" javaType="DATE"></result>
+        <result  column="drug_shelf_life" property="drugShelfLife" javaType="DATE"></result>
+        <result  column="drug_market_price" property="drugMarketPrice" javaType="NUMERIC"></result>
+        <result  column="drug_packing_quantity" property="quantity" javaType="String"></result>
+        <result  column="drug_mmodity_stocks" property="stocks" javaType="String"></result>
+        <result  column="drug_manufacturer" property="manufacturer" javaType="String"></result>
+        <result  column="drug_img" property="drugImg" javaType="String"></result>
+        <result  column="drug_buy_status" property="buyStatus" javaType="String"></result>
+        <result  column="drug_license_number" property="drugLicenseNumber" javaType="String"></result>
+        <result  column="drug_number" property="drugNumber" javaType="String"></result>
+        <result  column="drug_another_name" property="drugAnotherName" javaType="String"></result>
+        <result  column="drug_zero_sale" property="drugZeroSale" javaType="String"></result>
+        <result  column="drug_large_packing_quantity" property="drugLargePackingQuantity" javaType="String"></result>
+        <result  column="drug_sales_control" property="drugSalesControl" javaType="String"></result>
+        <result  column="drug_void" property="drugVoid" javaType="String"></result>
+        <result  column="buyer_id" property="buyerId" javaType="String"></result>
+        <result  column="drug_commodity_qualification" property="drugCommodityQualification" javaType="String"></result>
+        <result  column="drug_commercial_dosage" property="drugCommercialDosage" javaType="String"></result>
+        <result  column="drug_list" property="drugList" javaType="String"></result>
+        <result  column="medicare_type_id" property="medicareTypeId" javaType="String"></result>
+        <result  column="drug_prescribed" property="drugPrescribed" javaType="String"></result>
+        <result  column="drug_ bases" property="drugBases" javaType="String"></result>
+        <result  column="drug_Indications_function" property="drugIndications_function" javaType="String"></result>
+        <result  column="drug_contraindication" property="drugContraindication" javaType="String"></result>
+        <result  column="drug_reaction" property="drugReaction" javaType="String"></result>
+        <result  column="drug_candicine" property="drugCandicine" javaType="String"></result>
+        <result  column="drug_considerations" property="drugConsiderations" javaType="String"></result>
+        <result  column="drug_toxicology" property="drugToxicology" javaType="String"></result>
+        <result  column="drug_overdose" property="drugOverdose" javaType="String"></result>
+        <result  column="drug_Interaction" property="drugInteraction" javaType="String"></result>
+        <result  column="drug_dosage" property="drugDosage" javaType="String"></result>
+        <result  column="shop_recommendation" property="shopRecommendation" javaType="String"></result>
+        <result  column="drug_warning_count" property="warningCount" javaType="String"></result>
+        <result  column="freight_free" property="freightFree" javaType="String"></result>
+        <result  column="audit_type" property="auditType" javaType="String"></result>
+        <result  column="drup_issued_status" property="issuedStatus" javaType="String"></result>
+
+    </resultMap>
+    -->
+    <sql id="userWhere">
+        <if test="supplierDrug.name!=null and supplierDrug.name!=''">
+            and drug_name like '%${supplierDrug.name}%'
+        </if>
+    </sql>
+    <select id="QueryDrugByIssuedStatus" parameterType="com.jk.pojo.SupplierDrug" resultType="com.jk.pojo.SupplierDrug">
+      select drug_id id,drug_name name,drug_mnemonic_code drugMnemonicCode,drug_another_name drugAnotherName,
+        drug_license_number drugLicenseNumber,drug_number drugNumber,drug_commercial_specifications specification,
+        drug_zero_sale drugZeroSale,drug_packing_quantity quantity,drug_large_packing_quantity drugLargePackingQuantity,
+        drug_sales_control drugSalesControl,drug_buy_count drugBuyCount,drug_market_price drugMarketPrice,
+        drug_mmodity_stocks stocks,drug_img drugImg,drug_commodity_qualification drugCommodityQualification,
+        drug_commercial_dosage drugCommercialDosage,drug_list drugList,drug_prescribed drugPrescribed,drug_bases drugBases,
+        drug_Indications_function drugIndications_function,drug_contraindication drugContraindication,
+        drug_reaction drugReaction,drug_candicine drugCandicine,drug_considerations drugConsiderations,
+        drug_toxicology drugToxicology,drug_overdose drugOverdose,drug_Interaction drugInteraction,
+        drug_dosage drugDosage,shop_recommendation shopRecommendation,freight_free freightFree,
+        audit_type auditType,drup_issued_status issuedStatus,drug_uporlow_status drugUporlowStatus
+        from drug_drug where drup_issued_status='发布'
+        <include refid="userWhere"></include>
+    </select>
+
+
+    <update id="updateIssuedStatus">
+      update drug_drug set drug_uporlow_status='上架' where drug_id in
+        ( <foreach collection="ids" item="ids" separator="," >
+            #{ids}
+        </foreach>)
+    </update>
+    <update id="updateIssuedStatus2">
+        update drug_drug set drug_uporlow_status='下架' where drug_id in
+        ( <foreach collection="ids" item="ids" separator="," >
+        #{ids}
+    </foreach>)
+    </update>
+    <delete id="deleteDrugById" parameterType="String">
+        delete from drug_drug where drug_id=#{id}
+    </delete>
+    <select id="queryDrugById" parameterType="String" resultType="com.jk.pojo.SupplierDrug">
+        select drug_id id,drug_name name,drug_mnemonic_code drugMnemonicCode,drug_another_name drugAnotherName,
+        drug_license_number drugLicenseNumber,drug_number drugNumber,drug_commercial_specifications specification,
+        drug_zero_sale drugZeroSale,drug_packing_quantity quantity,drug_large_packing_quantity drugLargePackingQuantity,
+        drug_sales_control drugSalesControl,drug_buy_count drugBuyCount,drug_market_price drugMarketPrice,
+        drug_mmodity_stocks stocks,drug_img drugImg,drug_commodity_qualification drugCommodityQualification,
+        drug_commercial_dosage drugCommercialDosage,drug_list drugList,drug_prescribed drugPrescribed,drug_bases drugBases,
+        drug_Indications_function drugIndications_function,drug_contraindication drugContraindication,
+        drug_reaction drugReaction,drug_candicine drugCandicine,drug_considerations drugConsiderations,
+        drug_toxicology drugToxicology,drug_overdose drugOverdose,drug_Interaction drugInteraction,
+        drug_dosage drugDosage,shop_recommendation shopRecommendation,freight_free freightFree,
+        audit_type auditType,drup_issued_status issuedStatus,drug_uporlow_status drugUporlowStatus
+        from drug_drug where drup_issued_status='发布' and drug_id=#{id}
+    </select>
+    <update id="updateDrug" parameterType="com.jk.pojo.SupplierDrug">
+      update drug_drug set drug_name=#{name},drug_mnemonic_code=#{drugMnemonicCode},drug_another_name=#{drugAnotherName},
+        drug_license_number=#{drugLicenseNumber},drug_number=#{drugNumber},drug_commercial_specifications=#{specification},
+        drug_zero_sale=#{drugZeroSale},drug_packing_quantity=#{quantity},drug_large_packing_quantity=#{drugLargePackingQuantity},
+        drug_sales_control=#{drugSalesControl},drug_buy_count=#{drugBuyCount},drug_market_price=#{drugMarketPrice},
+        drug_mmodity_stocks=#{stocks},drug_img=#{drugImg},drug_commodity_qualification=#{drugCommodityQualification},
+        drug_commercial_dosage=#{drugCommercialDosage},drug_list=#{drugList},drug_prescribed=#{drugPrescribed},drug_bases=#{drugBases},
+        drug_Indications_function=#{drugIndications_function},drug_contraindication=#{drugContraindication},
+        drug_reaction=#{drugReaction},drug_candicine=#{drugCandicine},drug_considerations =#{drugConsiderations},
+        drug_toxicology=#{drugToxicology},drug_overdose=#{drugOverdose},drug_Interaction=#{drugInteraction},
+        drug_dosage=#{drugDosage},shop_recommendation=#{shopRecommendation},freight_free=#{freightFree},
+        audit_type=#{auditType},drup_issued_status=#{issuedStatus},drug_uporlow_status=#{drugUporlowStatus}
+        where drup_issued_status='发布' and drug_id=#{id}
+    </update>
+    <insert id="saveDrug" parameterType="com.jk.pojo.SupplierDrug">
+        insert into drug_drug (drug_name,drug_mnemonic_code,drug_license_number,
+        drug_supplier_id,drug_number,drug_another_name,drug_commercial_specifications,
+        drug_zero_sale,drug_packing_quantity,drug_large_packing_quantity,drug_sales_control,
+        drug_production_date,drug_buy_count,drug_shelf_life,drug_market_price,drug_price,
+        drug_mmodity_stocks,drug_img,buyer_id,drug_commodity_qualification,
+        drug_commercial_dosage,drug_list,medicare_type_id,drug_prescribed,drug_bases,
+        drug_Indications_function,drug_contraindication,drug_reaction,drug_candicine,
+        drug_considerations,drug_toxicology,drug_overdose,drug_Interaction,drug_dosage,
+        shop_recommendation,drug_warning_count,freight_free,drug_manufacturer,
+        audit_type,drup_issued_status,drug_uporlow_status)
+        values
+        (#{name},#{drugMnemonicCode},#{drugLicenseNumber},#{supplierId},#{drugNumber},
+        #{drugAnotherName},#{drugCommercialSpecifications},#{drugZeroSale},#{quantity},
+        #{drugLargePackingQuantity},#{drugSalesControl},#{productionDate},#{drugBuyCount},
+        #{drugShelfLife},#{drugMarketPrice},#{drugPrice},#{stocks},#{drugImg},#{buyerId},
+        #{drugCommodityQualification},#{drugCommercialDosage},#{drugList},#{medicareTypeId},
+        #{drugPrescribed},#{drugBases},#{drugIndications_function},#{drugContraindication},
+        #{drugReaction},#{drugCandicine},#{drugConsiderations},#{drugToxicology},#{drugOverdose},
+        #{drugInteraction},#{drugDosage},#{shopRecommendation},#{warningCount},
+        #{freightFree},#{manufacturer},'待审核','发布','上架')
+
+    </insert>
+    <select id="QueryDrugBySpreadStatus" parameterType="com.jk.pojo.SupplierDrug" resultType="com.jk.pojo.SupplierDrug">
+        select drug_id id,drug_name name,drug_mnemonic_code drugMnemonicCode,drug_another_name drugAnotherName,
+        drug_license_number drugLicenseNumber,drug_number drugNumber,drug_commercial_specifications specification,
+        drug_zero_sale drugZeroSale,drug_packing_quantity quantity,drug_large_packing_quantity drugLargePackingQuantity,
+        drug_sales_control drugSalesControl,drug_buy_count drugBuyCount,drug_market_price drugMarketPrice,
+        drug_mmodity_stocks stocks,drug_img drugImg,drug_commodity_qualification drugCommodityQualification,
+        drug_commercial_dosage drugCommercialDosage,drug_list drugList,drug_prescribed drugPrescribed,drug_bases drugBases,
+        drug_Indications_function drugIndications_function,drug_contraindication drugContraindication,
+        drug_reaction drugReaction,drug_candicine drugCandicine,drug_considerations drugConsiderations,
+        drug_toxicology drugToxicology,drug_overdose drugOverdose,drug_Interaction drugInteraction,
+        drug_dosage drugDosage,shop_recommendation shopRecommendation,freight_free freightFree,
+        audit_type auditType,drup_issued_status issuedStatus,drug_uporlow_status drugUporlowStatus
+        from drug_drug where drup_issued_status='发布' and drug_spread_status!='未推广'
+        <include refid="userWhere"></include>
+    </select>
+
+    <update id="updateSpread">
+        update drug_drug set drug_spread_status='推广中' where drug_id in
+        ( <foreach collection="ids" item="ids" separator="," >
+        #{ids}
+    </foreach>)
+    </update>
+    <update id="updateSpread2">
+        update drug_drug set drug_spread_status='取消推广' where drug_id in
+        ( <foreach collection="ids" item="ids" separator="," >
+        #{ids}
+    </foreach>)
+    </update>
+
+    <delete id="deleteSpreadById" parameterType="String">
+        delete from drug_drug where drug_id=#{id}
+    </delete>
+    </mapper>
