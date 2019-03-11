@@ -21,13 +21,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int saveAgencyInfo(ProductAgency productAgency) {
-       int i= productMapper.saveAgencyInfo(productAgency);
+        int i= productMapper.saveAgencyInfo(productAgency);
         return i;
     }
 
     @Override
     public List<ProductAgencyDto> queryAgencyInfo() {
-
         return productMapper.queryAgencyInfo();
     }
 }

@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jk.dao.SupplierDao">
-    <resultMap type="com.jk.pojo.SupplierDrug" id="SupplierMap">
-        <id column="drug_id" property="id"/>
-        <result column="drug_name" property="name"/>
-        <result column="drug_supplier_id" property="supplierId"/>
-        <result column="drug_price" property="price"/>
-        <result column="drug_commercial_specifications" property="specification"/>
-        <result column="drug_production_date" property="productionDate"/>
-        <result column="drug_packing_quantity" property="quantity"/>
-        <result column="drug_mmodity_stocks" property="stocks"/>
-        <result column="drug_manufacturer" property="manufacturer"/>
-        <result column="drug_img" property="drugImg"/>
-        <result column="drug_buy_status" property="buyStatus"/>
-    </resultMap>
-    <select id="SupperDrugFind" resultMap="SupplierMap" parameterType="Integer">
-      select drug_id,drug_name,drug_supplier_id,drug_price,drug_commercial_specifications,drug_production_date,
-      drug_packing_quantity,drug_mmodity_stocks,drug_manufacturer,drug_img,drug_buy_status from drug_drug where drug_supplier_id=#{supplierId}
-    </select>
-    <select id="ShoppingFind" resultMap="SupplierMap" >
-      select drug_id,drug_name,drug_price,drug_commercial_specifications,
-     drug_manufacturer,drug_img,drug_buy_status from drug_drug
-    </select>
+
 </mapper>

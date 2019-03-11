@@ -30,9 +30,9 @@ public class ProductController implements ProductServiceApi {
         int i = productService.saveAgencyInfo(productAgency);
         String str="";
         if(i!=0){
-             str="添加成功";
+            str="添加成功";
         }else{
-             str="添加失败";
+            str="添加失败";
         }
         return str;
     }
