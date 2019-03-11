@@ -7,11 +7,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class Settlement {
-    private Integer settlementId;//订单ID
+    private Integer settlementId;//主键
+    private Integer orderId;//订单号
     private String productPurchaser;//采购商
-    private String productName;//采购商品
+    private String productName;//采购商品名称
     private String commoditySpecification;//商品规格
-    private Integer settlementCount;//购买数
+    private Integer productQuantity;//购买数
     private Integer settlementPromotion;//促销
     private Integer settlementcommission;//推广佣金
     private Integer settlementStatus;//结算状态
@@ -24,6 +25,15 @@ public class Settlement {
     private Date settlementDate;//结算时间
     private Integer actualReceipts;//实收款
     private Integer productSinglePrice;//单价
+
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
     public Integer getSettlementId() {
         return settlementId;
@@ -57,12 +67,12 @@ public class Settlement {
         this.commoditySpecification = commoditySpecification;
     }
 
-    public Integer getSettlementCount() {
-        return settlementCount;
+    public Integer getProductQuantity() {
+        return productQuantity;
     }
 
-    public void setSettlementCount(Integer settlementCount) {
-        this.settlementCount = settlementCount;
+    public void setProductQuantity(Integer productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
     public Integer getSettlementPromotion() {
@@ -133,10 +143,11 @@ public class Settlement {
     public String toString() {
         return "Settlement{" +
                 "settlementId=" + settlementId +
+                ", orderId=" + orderId +
                 ", productPurchaser='" + productPurchaser + '\'' +
                 ", productName='" + productName + '\'' +
                 ", commoditySpecification='" + commoditySpecification + '\'' +
-                ", settlementCount=" + settlementCount +
+                ", productQuantity=" + productQuantity +
                 ", settlementPromotion=" + settlementPromotion +
                 ", settlementcommission=" + settlementcommission +
                 ", settlementStatus=" + settlementStatus +

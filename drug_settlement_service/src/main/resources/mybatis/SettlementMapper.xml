@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.dao.SettlementDao">
+
+    <sql id="search">
+        <if test="orderId!=null and orderId!=''">
+            and settlement.order_id = #{orderId}
+        </if>
+
+        <if test="productName!=null and productName!=''">
+            and salesorde.product_name like '%${productName}%'
+        </if>
+
+        <if test="productPurchaser!=null and productPurchaser!=''">
+            and salesorde.product_purchaser like '%${productPurchaser}%'
+        </if>
+
+        <if test="settlementStatus!=null and settlementStatus!=''">
+            and settlement.settlement_status = #{settlementStatus}
+        </if>
+    </sql>
+
     <!--测试框架-->
-<select id="test" resultType="com.jk.pojo.Test">
+    <select id="test" resultType="com.jk.pojo.Test">
     SELECT supplier_id supplierId,supplier_name supplierName FROM drug_supplier
 </select>
-   <!-- 绑卡设置 添加银行卡-->
-<insert id="saveBankCard" parameterType="com.jk.pojo.BankCard">
+    <!-- 绑卡设置 添加银行卡-->
+    <insert id="saveBankCard" parameterType="com.jk.pojo.BankCard">
     insert into drug_bank_card(bank_name,bank_card_number,payment_password,cardholder_name,phone_number)
             values(#{bankName},#{bankCardNumber},#{paymentPassword},#{cardholderName},#{phoneNumber})
 </insert>
+
+    <select id="querySettlement" resultType="com.jk.pojo.Settlement">
+    select
+settlement.settlement_id	  settlementId,
+settlement.order_id           orderId,
+salesorde.product_name  	  productName,
+salesorde.product_purchaser   productPurchaser,
+salesorde.product_quantity	  productQuantity,
+salesorde.actual_receipts	        actualReceipts,
+salesorde.settlement_promotion      settlementPromotion,
+salesorde.commodity_specification 	commoditySpecification,
+salesorde.settlement_commission	    settlementcommission,
+salesorde.settlement_amount	        settlementAmount,
+salesorde.product_single_price		productSinglePrice,
+settlement.settlement_status 		settlementStatus,
+settlement.application_date			applicationDate,
+settlement.settlement_date			settlementDate
+from drug_salesorde salesorde , drug_settlement settlement
+where settlement.order_id=salesorde.order_id
+<include refid="search"></include>
+    </select>
+
 </mapper>

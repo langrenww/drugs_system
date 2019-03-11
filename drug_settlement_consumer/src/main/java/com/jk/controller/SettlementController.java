@@ -1,6 +1,7 @@
 package com.jk.controller;
 
 import com.jk.pojo.BankCard;
+import com.jk.pojo.Settlement;
 import com.jk.pojo.Test;
 import com.jk.service.SettlementServiceConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class SettlementController {
@@ -41,8 +41,8 @@ public class SettlementController {
     }
     @GetMapping("querySettlement")
     @ResponseBody
-    public void querySettlement(){
-
+    public List<Settlement> querySettlement(Settlement settlement){
+       return  settlementServiceConsumer.querySettlement(settlement);
     }
 
 }
