@@ -6,14 +6,34 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="drug_agency_api" />
+        <module name="drug_agency_server" />
+        <module name="drug_agency_web" />
+        <module name="drug_change_password_api" />
+        <module name="drug_change_password_consumer" />
+        <module name="drug_change_password_server" />
         <module name="drug_common" />
         <module name="drug_eureka" />
+        <module name="drug_settlement_consumer" />
+        <module name="drug_settlement_service" />
+        <module name="drug_settlement_service_api" />
+        <module name="drug_supplier_api" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="drug_agency_api" options="-parameters" />
+      <module name="drug_agency_server" options="-parameters" />
+      <module name="drug_agency_web" options="-parameters" />
+      <module name="drug_change_password_api" options="-parameters" />
+      <module name="drug_change_password_consumer" options="-parameters" />
+      <module name="drug_change_password_server" options="-parameters" />
       <module name="drug_eureka" options="-parameters" />
+      <module name="drug_settlement_consumer" options="-parameters" />
+      <module name="drug_settlement_service" options="-parameters" />
+      <module name="drug_settlement_service_api" options="-parameters" />
+      <module name="drug_supplier_api" options="-parameters" />
     </option>
   </component>
 </project>

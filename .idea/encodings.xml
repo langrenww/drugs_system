@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/drug_agency_api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_agency_server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_agency_web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_change_password_api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_change_password_server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_change_password_web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/drug_common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/drug_eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_settlement_consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_settlement_service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_settlement_service_api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/drug_supplier_api" charset="UTF-8" />
   </component>
 </project>
