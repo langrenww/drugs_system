@@ -26,10 +26,7 @@ public class SupplierDrug {
     private String  drugSalesControl;//商品销售控制
     private  String drugBuyCount;//购买数量
     private String  drugShelfLife;//保质期
-
     private BigDecimal drugPrice;//商品价格
-
-
     private BigDecimal  drugMarketPrice;//市场价格
     private String  drugVoid;//视频
     private String  buyerId;//采购商id
