@@ -14,7 +14,8 @@ public class SupplierDrug {
     private String stocks;//药品库存
     private String manufacturer;//生产厂家
     private String  drugImg;//药品图片
-    private String  buyStatus;//购买状态
+    private Integer  buyStatus;//购买状态
+    private String  buyCount;//购买数量
     private String  drugMnemonicCode;//助记码
     private String  drugLicenseNumber;//批准文号
     private String  drugNumber;//药品编号
@@ -25,7 +26,10 @@ public class SupplierDrug {
     private String  drugSalesControl;//商品销售控制
     private  String drugBuyCount;//购买数量
     private String  drugShelfLife;//保质期
+
     private BigDecimal drugPrice;//商品价格
+
+
     private BigDecimal  drugMarketPrice;//市场价格
     private String  drugVoid;//视频
     private String  buyerId;//采购商id
@@ -51,6 +55,7 @@ public class SupplierDrug {
     private String  issuedStatus;//发布状态
     private String drugUporlowStatus;//上下架状态
     private String drugSpreadStatus;//推广状态
+
 
     public String getDrugSpreadStatus() {
         return drugSpreadStatus;
@@ -90,14 +95,103 @@ public class SupplierDrug {
 
     public void setDrugCommercialSpecifications(String drugCommercialSpecifications) {
         this.drugCommercialSpecifications = drugCommercialSpecifications;
+
     }
 
-    public String getBuyStatus() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public Date getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(String stocks) {
+        this.stocks = stocks;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getDrugImg() {
+        return drugImg;
+    }
+
+    public void setDrugImg(String drugImg) {
+        this.drugImg = drugImg;
+    }
+
+    public Integer getBuyStatus() {
         return buyStatus;
     }
 
-    public void setBuyStatus(String buyStatus) {
+    public void setBuyStatus(Integer buyStatus) {
         this.buyStatus = buyStatus;
+    }
+
+    public String getBuyCount() {
+        return buyCount;
+    }
+
+    public void setBuyCount(String buyCount) {
+        this.buyCount = buyCount;
     }
 
     public String getDrugMnemonicCode() {
@@ -346,85 +440,5 @@ public class SupplierDrug {
 
     public void setIssuedStatus(String issuedStatus) {
         this.issuedStatus = issuedStatus;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Integer supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getSpecification() {
-        return specification;
-    }
-
-    public void setSpecification(String specification) {
-        this.specification = specification;
-    }
-
-    public Date getProductionDate() {
-        return productionDate;
-    }
-
-    public void setProductionDate(Date productionDate) {
-        this.productionDate = productionDate;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getStocks() {
-        return stocks;
-    }
-
-    public void setStocks(String stocks) {
-        this.stocks = stocks;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getDrugImg() {
-        return drugImg;
-    }
-
-    public void setDrugImg(String drugImg) {
-        this.drugImg = drugImg;
     }
 }
