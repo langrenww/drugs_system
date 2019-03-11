@@ -25,4 +25,10 @@ public interface QueryDrugByIssuedStatusServiceApi {
     List<SupplierDrug> QueryDrugBySpreadStatus(SupplierDrug supplierDrug);
     @PostMapping("QueryDrugBySpreadStatus2")
     List<SupplierDrug> QueryDrugBySpreadStatus2(SupplierDrug supplierDrug);
+    @PutMapping("updateSpread")
+    void updateSpread(String[] ids);
+    @PutMapping("updateSpread2")
+    void updateSpread2(String[] ids);
+    @DeleteMapping("deleteSpreadById")
+    void deleteSpreadById(String id);
 }
