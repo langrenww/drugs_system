@@ -19,11 +19,14 @@ public class SupplierDrug {
     private String  drugLicenseNumber;//批准文号
     private String  drugNumber;//药品编号
     private String  drugAnotherName;//药品别名
+    private String drugCommercialSpecifications;//药品规格
     private String  drugZeroSale;//是否拆零销售
     private String  drugLargePackingQuantity;//大包装数量
     private String  drugSalesControl;//商品销售控制
+    private  String drugBuyCount;//购买数量
     private String  drugShelfLife;//保质期
-    private String  drugMarketPrice;//市场价格
+    private BigDecimal drugPrice;//商品价格
+    private BigDecimal  drugMarketPrice;//市场价格
     private String  drugVoid;//视频
     private String  buyerId;//采购商id
     private String  drugCommodityQualification;//商品资质
@@ -46,7 +49,48 @@ public class SupplierDrug {
     private String  freightFree;//是否免运费
     private String  auditType;//审核状态
     private String  issuedStatus;//发布状态
+    private String drugUporlowStatus;//上下架状态
+    private String drugSpreadStatus;//推广状态
 
+    public String getDrugSpreadStatus() {
+        return drugSpreadStatus;
+    }
+
+    public void setDrugSpreadStatus(String drugSpreadStatus) {
+        this.drugSpreadStatus = drugSpreadStatus;
+    }
+
+    public BigDecimal getDrugPrice() {
+        return drugPrice;
+    }
+
+    public void setDrugPrice(BigDecimal drugPrice) {
+        this.drugPrice = drugPrice;
+    }
+
+    public String getDrugUporlowStatus() {
+        return drugUporlowStatus;
+    }
+
+    public void setDrugUporlowStatus(String drugUporlowStatus) {
+        this.drugUporlowStatus = drugUporlowStatus;
+    }
+
+    public String getDrugBuyCount() {
+        return drugBuyCount;
+    }
+
+    public void setDrugBuyCount(String drugBuyCount) {
+        this.drugBuyCount = drugBuyCount;
+    }
+
+    public String getDrugCommercialSpecifications() {
+        return drugCommercialSpecifications;
+    }
+
+    public void setDrugCommercialSpecifications(String drugCommercialSpecifications) {
+        this.drugCommercialSpecifications = drugCommercialSpecifications;
+    }
 
     public String getBuyStatus() {
         return buyStatus;
@@ -120,11 +164,11 @@ public class SupplierDrug {
         this.drugShelfLife = drugShelfLife;
     }
 
-    public String getDrugMarketPrice() {
+    public BigDecimal getDrugMarketPrice() {
         return drugMarketPrice;
     }
 
-    public void setDrugMarketPrice(String drugMarketPrice) {
+    public void setDrugMarketPrice(BigDecimal drugMarketPrice) {
         this.drugMarketPrice = drugMarketPrice;
     }
 
