@@ -6,9 +6,7 @@ import com.jk.service.ProductService;
 import com.jk.service.ProductServiceApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,5 +40,19 @@ public class ProductController implements ProductServiceApi {
     public List<ProductAgencyDto> queryAgencyInfo() {
 
         return productService.queryAgencyInfo();
+    }
+    @Override
+    @DeleteMapping("deleteAgencyInfo")
+    @ResponseBody
+
+    public String deleteAgencyInfo(@RequestBody String  id) {
+        int i=productService.deleteAgencyInfo(id);
+        String str="";
+        if(i!=0){
+            str="删除成功";
+        }else{
+            str="删除失败";
+        }
+        return str;
     }
 }
