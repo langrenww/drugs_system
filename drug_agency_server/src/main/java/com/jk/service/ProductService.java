@@ -11,4 +11,6 @@ public interface ProductService {
     int saveAgencyInfo(ProductAgency productAgency);
 
     List<ProductAgencyDto> queryAgencyInfo();
+
+    int deleteAgencyInfo(String  id);
 }
