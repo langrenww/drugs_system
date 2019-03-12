@@ -29,4 +29,10 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductAgencyDto> queryAgencyInfo() {
         return productMapper.queryAgencyInfo();
     }
+
+    @Override
+    public int deleteAgencyInfo(String  id) {
+
+        return productMapper.deleteAgencyInfo(id);
+    }
 }
