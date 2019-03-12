@@ -20,5 +20,8 @@ VALUES(
 select d.product_name productName,d.product_linkman productLinkman,d.contact_phone contactPhone,r.district agencyCity,r2.district agencyProvince from drug_agency_product d,drug_rc_district r,drug_rc_district r2 where
  d.rc_district_id=r.id and r.pid=r2.id
 </select>
+ <delete id="deleteAgencyInfo" parameterType="String">
+  delete  from drug_agency_product  where product_id =#{id}
+ </delete>
 </mapper>
     
