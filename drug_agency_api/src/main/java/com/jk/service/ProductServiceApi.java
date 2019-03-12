@@ -2,6 +2,7 @@ package com.jk.service;
 
 import com.jk.pojo.ProductAgency;
 import com.jk.pojo.ProductAgencyDto;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,4 +15,6 @@ public interface ProductServiceApi {
     String saveAgencyInfo(ProductAgency productAgency);
     @GetMapping("queryAgencyInfo")
     List<ProductAgencyDto> queryAgencyInfo();
+    @DeleteMapping("deleteAgencyInfo")
+    String deleteAgencyInfo(String  id);
 }
