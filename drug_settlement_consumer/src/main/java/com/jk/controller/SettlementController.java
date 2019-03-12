@@ -1,14 +1,14 @@
 package com.jk.controller;
 
-import com.jk.pojo.BankCard;
-import com.jk.pojo.Settlement;
-import com.jk.pojo.Test;
+import com.jk.pojo.*;
 import com.jk.service.SettlementServiceConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SettlementController {
@@ -58,6 +58,29 @@ public class SettlementController {
     @ResponseBody
     public void applyettlement(@RequestParam("id") Integer id){
         settlementServiceConsumer.applyettlement(id);
+    }
+
+    /**
+     * 查询 待结算，可体现，累计提现总金额
+     * @return
+     */
+    @GetMapping("queryMoneySum")
+    @ResponseBody
+    public List<Money> queryMoneySum(){
+        List<Money> list=settlementServiceConsumer.queryMoneySum();
+        return list;
+    }
+
+    @GetMapping("queryOrderCount")
+    @ResponseBody
+    public List<OrderCount> queryOrderCount(OrderCount orderCount){
+        return settlementServiceConsumer.queryOrderCount(orderCount);
+    }
+
+    @GetMapping("querySuccessCount")
+    @ResponseBody
+    public List<OrderCount> querySuccessCount(OrderCount orderCount){
+        return settlementServiceConsumer.querySuccessCount(orderCount);
     }
 
 }

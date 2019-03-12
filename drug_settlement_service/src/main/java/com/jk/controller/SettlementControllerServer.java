@@ -1,8 +1,6 @@
 package com.jk.controller;
 
-import com.jk.pojo.BankCard;
-import com.jk.pojo.Settlement;
-import com.jk.pojo.Test;
+import com.jk.pojo.*;
 import com.jk.service.SettlementService;
 import com.jk.service.SettlementServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +57,29 @@ public class SettlementControllerServer implements SettlementService {
     @Override
     public void applyettlement(@RequestParam("id") Integer id) {
         settlementServiceProvider.applyettlement(id);
+    }
+
+    /**
+     * 查询 待结算，可体现，累计提现总金额
+     * @return
+     */
+    @GetMapping("queryMoneySum")
+    @ResponseBody
+    @Override
+    public List<Money> queryMoneySum() {
+        return settlementServiceProvider.queryMoneySum();
+    }
+
+    @PostMapping("queryOrderCount")
+    @ResponseBody
+    @Override
+    public List<OrderCount> queryOrderCount(@RequestBody  OrderCount orderCount) {
+        return settlementServiceProvider.queryOrderCount(orderCount);
+    }
+    @PostMapping("querySuccessCount")
+    @ResponseBody
+    @Override
+    public List<OrderCount> querySuccessCount(@RequestBody  OrderCount orderCount) {
+        return settlementServiceProvider.querySuccessCount(orderCount);
     }
 }

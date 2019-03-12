@@ -1,8 +1,6 @@
 package com.jk.service;
 
-import com.jk.pojo.BankCard;
-import com.jk.pojo.Settlement;
-import com.jk.pojo.Test;
+import com.jk.pojo.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,4 +38,17 @@ public interface SettlementService {
      */
     @PutMapping("applyettlement")
     void applyettlement(@RequestParam("id") Integer id);
+
+    /**
+     * 查询待结算，可体现，累计提现总金额
+     * @return
+     */
+    @GetMapping("queryMoneySum")
+    List<Money> queryMoneySum();
+
+    @PostMapping("queryOrderCount")
+    List<OrderCount> queryOrderCount(OrderCount orderCount);
+
+    @PostMapping("querySuccessCount")
+    List<OrderCount> querySuccessCount(OrderCount orderCount);
 }

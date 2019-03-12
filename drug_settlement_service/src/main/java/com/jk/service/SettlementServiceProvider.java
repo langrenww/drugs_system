@@ -1,8 +1,6 @@
 package com.jk.service;
 
-import com.jk.pojo.BankCard;
-import com.jk.pojo.Settlement;
-import com.jk.pojo.Test;
+import com.jk.pojo.*;
 
 import java.util.List;
 
@@ -14,4 +12,10 @@ public interface SettlementServiceProvider {
     List<Settlement> querySettlement(Settlement settlement);
 
     void applyettlement(Integer id);
+
+    List<Money> queryMoneySum();
+
+    List<OrderCount> queryOrderCount(OrderCount orderCount);
+
+    List<OrderCount> querySuccessCount(OrderCount orderCount);
 }

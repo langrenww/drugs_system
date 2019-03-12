@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.dao.SettlementDao">
-
+    <!--条查公共sql-->
     <sql id="search">
         <if test="orderId!=null and orderId!=''">
             and settlement.order_id = #{orderId}
@@ -34,6 +34,64 @@
         </if>
     </sql>
 
+        <!--根据时间统计-->
+    <sql id="timeCondition">
+        <if test="selectCountStatus==0">
+            <!--本月-->
+            SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  WHERE DATE_FORMAT(product_orderTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) group by product_orderTime
+        </if>
+        <if test="selectCountStatus==7">
+            <!--7天-->
+            SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date( product_orderTime) group by product_orderTime
+        </if>
+        <if test="selectCountStatus==30">
+            <!-- 近30天-->
+            SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(product_orderTime) group by product_orderTime
+        </if>
+        <if test="selectCountStatus==-1 and startDate!=null and endDate!=null">
+            SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime between #{startDate} and  #{endDate} group by product_orderTime
+        </if>
+        <if test="selectCountStatus==-1 and endDate!=null and startDate==null">
+            SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &lt; #{endDate} group by product_orderTime
+        </if>
+        <if test="selectCountStatus==-1 and endDate==null and startDate!=null">
+            SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &gt; #{startDate} group by product_orderTime
+        </if>
+    </sql>
+    <select id="queryOrderCount" resultType="com.jk.pojo.OrderCount">
+        <include refid="timeCondition"></include>
+    </select>
+
+
+      <!--已完成的 成交量-->
+    <sql id="successTimeCondition">
+        <if test="selectCountStatus==0">
+            <!--本月-->
+            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  WHERE DATE_FORMAT(  product_orderTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) and order_status=1 group by product_orderTime
+        </if>
+        <if test="selectCountStatus==7">
+            <!--7天-->
+            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date( product_orderTime) and order_status=1 group by product_orderTime
+        </if>
+        <if test="selectCountStatus==30">
+            <!-- 近30天-->
+            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(product_orderTime) and order_status=1 group by product_orderTime
+        </if>
+        <if test="selectCountStatus==-1 and startDate!=null and endDate!=null">
+            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime between #{startDate} and  #{endDate} and order_status=1 group by product_orderTime
+        </if>
+        <if test="selectCountStatus==-1 and endDate!=null and startDate==null">
+            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &lt; #{endDate} and order_status=1 group by product_orderTime
+        </if>
+        <if test="selectCountStatus==-1 and endDate==null and startDate!=null">
+            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &gt; #{startDate} and order_status=1 group by product_orderTime
+        </if>
+    </sql>
+    <select id="querySuccessCount" resultType="com.jk.pojo.OrderCount">
+        <include refid="successTimeCondition" ></include>
+    </select>
+
+
     <!--测试框架-->
     <select id="test" resultType="com.jk.pojo.Test">
     SELECT supplier_id supplierId,supplier_name supplierName FROM drug_supplier
@@ -46,26 +104,46 @@
     <!--查询结算申请和结算记录-->
     <select id="querySettlement" resultType="com.jk.pojo.Settlement">
     select
-settlement.settlement_id	  settlementId,
-settlement.order_id           orderId,
-salesorde.product_name  	  productName,
-salesorde.product_purchaser   productPurchaser,
-salesorde.product_quantity	  productQuantity,
-salesorde.actual_receipts	        actualReceipts,
-salesorde.settlement_promotion      settlementPromotion,
-salesorde.commodity_specification 	commoditySpecification,
-salesorde.settlement_commission	    settlementcommission,
-salesorde.settlement_amount	        settlementAmount,
-salesorde.product_single_price		productSinglePrice,
-settlement.settlement_status 		settlementStatus,
-settlement.application_date			applicationDate,
-settlement.settlement_date			settlementDate
-from drug_salesorde salesorde , drug_settlement settlement
-where settlement.order_id=salesorde.order_id
+        settlement.settlement_id	  settlementId,
+        settlement.order_id           orderId,
+        salesorde.product_name  	  productName,
+        salesorde.product_purchaser   productPurchaser,
+        salesorde.product_quantity	  productQuantity,
+        salesorde.actual_receipts	        actualReceipts,
+        salesorde.settlement_promotion      settlementPromotion,
+        salesorde.commodity_specification 	commoditySpecification,
+        salesorde.settlement_commission	    settlementcommission,
+        salesorde.settlement_amount	        settlementAmount,
+        salesorde.product_single_price		productSinglePrice,
+        settlement.settlement_status 		settlementStatus,
+        settlement.application_date			applicationDate,
+        settlement.settlement_date			settlementDate
+    from drug_salesorde salesorde , drug_settlement settlement
+    where settlement.order_id=salesorde.order_id
 <include refid="search"></include>
     </select>
     <!--申请结算 将可结算状态改为出账中状态-->
     <update id="applyettlement" parameterType="int">
      update drug_settlement set settlement_status = 3 ,application_date=now() where settlement_id=#{id}
     </update>
+   <!-- 查询所有待结算金额-->
+    <select id="querysettlementMoney" resultType="Long">
+  select sum(actual_receipts)
+  from drug_salesorde salesorde , drug_settlement settlement
+  where settlement.order_id=salesorde.order_id and settlement.settlement_status=1
+    </select>
+    <!--查询所有可体现金额-->
+    <select id="querycashMoney" resultType="Long">
+ select sum(actual_receipts)
+  from drug_salesorde salesorde , drug_settlement settlement
+  where settlement.order_id=salesorde.order_id and settlement.settlement_status=2
+    </select>
+
+  <!--  查询累计提现总金额-->
+    <select id="querycashTotalMoney"  resultType="Long">
+     select sum(actual_receipts)
+    from drug_salesorde salesorde , drug_settlement settlement
+    where settlement.order_id=salesorde.order_id and settlement.settlement_status in (3,4)
+    </select>
+
 </mapper>
