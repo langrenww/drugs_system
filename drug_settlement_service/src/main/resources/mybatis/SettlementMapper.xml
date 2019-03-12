@@ -58,12 +58,13 @@
             SELECT count(*) orderCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &gt; #{startDate} group by product_orderTime
         </if>
     </sql>
+        <!--调用公共sql查询下单量-->
     <select id="queryOrderCount" resultType="com.jk.pojo.OrderCount">
         <include refid="timeCondition"></include>
     </select>
 
 
-      <!--已完成的 成交量-->
+      <!--已完成的 成交量 order_status=1是已完成状态-->
     <sql id="successTimeCondition">
         <if test="selectCountStatus==0">
             <!--本月-->
@@ -87,6 +88,7 @@
             SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &gt; #{startDate} and order_status=1 group by product_orderTime
         </if>
     </sql>
+    <!--调用公共sql 查询成交量-->
     <select id="querySuccessCount" resultType="com.jk.pojo.OrderCount">
         <include refid="successTimeCondition" ></include>
     </select>

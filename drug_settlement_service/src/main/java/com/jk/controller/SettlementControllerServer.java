@@ -70,12 +70,29 @@ public class SettlementControllerServer implements SettlementService {
         return settlementServiceProvider.queryMoneySum();
     }
 
+    /**
+     * 查询下单量
+     * @param orderCount
+     * 参数对象属性：selectCountStatus：数量状态 0本月 7近七天 30近三十天 -1是自定义
+     * 参数对象属性：startDate:自定义时开始时间
+     * 参数对象属性：endDate:自定义时结束时间
+     * @return
+     */
     @PostMapping("queryOrderCount")
     @ResponseBody
     @Override
     public List<OrderCount> queryOrderCount(@RequestBody  OrderCount orderCount) {
         return settlementServiceProvider.queryOrderCount(orderCount);
     }
+
+    /**
+     * 查询成交量
+     * @param orderCount
+     * 参数对象属性：selectCountStatus：数量状态 0本月 7近七天 30近三十天 -1是自定义
+     * 参数对象属性：startDate:自定义时开始时间
+     * 参数对象属性：endDate:自定义时结束时间
+     * @return
+     */
     @PostMapping("querySuccessCount")
     @ResponseBody
     @Override
