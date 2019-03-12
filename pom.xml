@@ -21,6 +21,9 @@
         <module>drug_change_password_api</module>
         <module>drug_change_password_server</module>
         <module>drug_change_password_web</module>
+        <module>drug_tree_api</module>
+        <module>drug_tree_service</module>
+        <module>drug_tree_web</module>
     </modules>
 
 
