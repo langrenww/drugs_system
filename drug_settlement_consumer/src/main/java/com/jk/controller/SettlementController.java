@@ -45,7 +45,8 @@ public class SettlementController {
     @GetMapping("querySettlement")
     @ResponseBody
     public List<Settlement> querySettlement(Settlement settlement){
-       return  settlementServiceConsumer.querySettlement(settlement);
+     List<Settlement> list=  settlementServiceConsumer.querySettlement(settlement);
+        return list;
     }
 
     /**
