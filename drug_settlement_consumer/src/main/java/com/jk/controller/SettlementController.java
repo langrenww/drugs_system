@@ -6,10 +6,7 @@ import com.jk.pojo.Test;
 import com.jk.service.SettlementServiceConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,6 +46,11 @@ public class SettlementController {
     @ResponseBody
     public List<Settlement> querySettlement(Settlement settlement){
        return  settlementServiceConsumer.querySettlement(settlement);
+    }
+    @PutMapping("applyettlement")
+    @ResponseBody
+    public void applyettlement(@RequestParam("id") Integer id){
+        settlementServiceConsumer.applyettlement(id);
     }
 
 }

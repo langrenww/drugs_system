@@ -12,4 +12,6 @@ public interface SettlementDao {
     void saveBankCard(BankCard bankCard);
 
     List<Settlement> querySettlement(Settlement settlement);
+
+    void applyettlement(Integer id);
 }

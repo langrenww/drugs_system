@@ -65,4 +65,7 @@ where settlement.order_id=salesorde.order_id
 <include refid="search"></include>
     </select>
 
+    <update id="applyettlement" parameterType="int">
+     update drug_settlement set settlement_status = 3 ,application_date=now() where settlement_id=#{id}
+    </update>
 </mapper>

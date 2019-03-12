@@ -7,10 +7,7 @@ import com.jk.service.SettlementService;
 import com.jk.service.SettlementServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,5 +48,12 @@ public class SettlementControllerServer implements SettlementService {
     @Override
     public List<Settlement> querySettlement(@RequestBody Settlement settlement) {
         return settlementServiceProvider.querySettlement(settlement);
+    }
+
+    @PutMapping("applyettlement")
+    @ResponseBody
+    @Override
+    public void applyettlement(@RequestParam("id") Integer id) {
+        settlementServiceProvider.applyettlement(id);
     }
 }

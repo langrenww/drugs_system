@@ -5,6 +5,8 @@ import com.jk.pojo.Settlement;
 import com.jk.pojo.Test;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,4 +32,7 @@ public interface SettlementService {
      */
     @PostMapping("querySettlement")
     List<Settlement> querySettlement(Settlement settlement);
+
+    @PutMapping("applyettlement")
+    void applyettlement(@RequestParam("id") Integer id);
 }

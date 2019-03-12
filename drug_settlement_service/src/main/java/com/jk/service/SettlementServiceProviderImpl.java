@@ -28,4 +28,9 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
         return settlementDao.querySettlement(settlement);
     }
 
+    @Override
+    public void applyettlement(Integer id) {
+        settlementDao.applyettlement(id);
+    }
+
 }
