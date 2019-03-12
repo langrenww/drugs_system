@@ -64,7 +64,7 @@ from drug_salesorde salesorde , drug_settlement settlement
 where settlement.order_id=salesorde.order_id
 <include refid="search"></include>
     </select>
-
+    <!--申请结算 将可结算状态改为出账中状态-->
     <update id="applyettlement" parameterType="int">
      update drug_settlement set settlement_status = 3 ,application_date=now() where settlement_id=#{id}
     </update>

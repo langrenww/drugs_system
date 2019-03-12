@@ -49,7 +49,11 @@ public class SettlementControllerServer implements SettlementService {
     public List<Settlement> querySettlement(@RequestBody Settlement settlement) {
         return settlementServiceProvider.querySettlement(settlement);
     }
-
+    /**
+     * 申请结算 将可结算状态改为出账中状态
+     * @param id
+     * 参数：传订单的主键
+     */
     @PutMapping("applyettlement")
     @ResponseBody
     @Override
