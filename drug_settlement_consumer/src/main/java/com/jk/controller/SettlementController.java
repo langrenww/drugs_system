@@ -32,7 +32,7 @@ public class SettlementController {
      */
     @PostMapping("saveBankCard")
     @ResponseBody
-    public void saveBankCard(@RequestBody BankCard bankCard){
+    public void saveBankCard(BankCard bankCard){
         settlementServiceConsumer.saveBankCard(bankCard);
 
     }
