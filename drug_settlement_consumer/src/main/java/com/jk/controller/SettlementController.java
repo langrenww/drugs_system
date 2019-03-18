@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class SettlementController {
@@ -44,8 +43,8 @@ public class SettlementController {
      */
     @GetMapping("querySettlement")
     @ResponseBody
-    public List<Settlement> querySettlement(Settlement settlement){
-     List<Settlement> list=  settlementServiceConsumer.querySettlement(settlement);
+    public HashMap<String, Object> querySettlement( Integer page,  Integer rows,  Settlement settlement){
+     HashMap<String, Object> list=  settlementServiceConsumer.querySettlement(page,rows,settlement);
         return list;
     }
 

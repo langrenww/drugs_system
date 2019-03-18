@@ -5,30 +5,30 @@
 <mapper namespace="com.jk.dao.SettlementDao">
     <!--条查公共sql-->
     <sql id="search">
-        <if test="orderId!=null and orderId!=''">
-            and settlement.order_id = #{orderId}
+        <if test="settlement.orderId!=null and settlement.orderId!=''">
+            and settlement.order_id = #{settlement.orderId}
         </if>
 
-        <if test="productName!=null and productName!=''">
-            and salesorde.product_name like '%${productName}%'
+        <if test="settlement.productName!=null and settlement.productName!=''">
+            and salesorde.product_name like '%${settlement.productName}%'
         </if>
 
-        <if test="productPurchaser!=null and productPurchaser!=''">
-            and salesorde.product_purchaser like '%${productPurchaser}%'
+        <if test="settlement.productPurchaser!=null and settlement.productPurchaser!=''">
+            and salesorde.product_purchaser like '%${settlement.productPurchaser}%'
         </if>
 
-        <if test="settlementStatus!=null and settlementStatus!=''">
+        <if test="settlement.settlementStatus!=null and settlement.settlementStatus!=''">
 
-            <if test="settlementStatus==5">
+            <if test="settlement.settlementStatus==5">
                 and settlement.settlement_status in(1,2)
             </if>
 
-            <if test="settlementStatus==6">
+            <if test="settlement.settlementStatus==6">
                 and settlement.settlement_status in(3,4)
             </if>
 
-            <if test="settlementStatus!=5 and settlementStatus!=6">
-                and settlement.settlement_status = #{settlementStatus}
+            <if test="settlement.settlementStatus!=5 and settlement.settlementStatus!=6">
+                and settlement.settlement_status = #{settlement.settlementStatus}
             </if>
 
         </if>
@@ -103,6 +103,14 @@
     insert into drug_bank_card(bank_name,bank_card_number,payment_password,cardholder_name,phone_number)
             values(#{bankName},#{bankCardNumber},#{paymentPassword},#{cardholderName},#{phoneNumber})
 </insert>
+
+        <!-- 查询总条数 -->
+        <select id="findSettlementCount"  resultType="int">
+            select count(1)   from drug_salesorde salesorde , drug_settlement settlement
+            where settlement.order_id=salesorde.order_id
+            <include refid="search"></include>
+        </select>
+
     <!--查询结算申请和结算记录-->
     <select id="querySettlement" resultType="com.jk.pojo.Settlement">
     select
@@ -123,6 +131,7 @@
     from drug_salesorde salesorde , drug_settlement settlement
     where settlement.order_id=salesorde.order_id
 <include refid="search"></include>
+        limit #{start},#{rows}
     </select>
     <!--申请结算 将可结算状态改为出账中状态-->
     <update id="applyettlement" parameterType="int">

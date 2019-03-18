@@ -2,6 +2,7 @@ package com.jk.service;
 
 import com.jk.pojo.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface SettlementServiceProvider {
@@ -9,7 +10,7 @@ public interface SettlementServiceProvider {
 
     void saveBankCard(BankCard bankCard);
 
-    List<Settlement> querySettlement(Settlement settlement);
+    HashMap<String, Object> querySettlement(Integer page, Integer rows, Settlement settlement);
 
     void applyettlement(Integer id);
 

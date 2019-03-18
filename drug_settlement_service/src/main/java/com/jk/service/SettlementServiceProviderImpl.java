@@ -4,9 +4,9 @@ import com.jk.dao.SettlementDao;
 import com.jk.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -24,8 +24,17 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
     }
 
     @Override
-    public List<Settlement> querySettlement(Settlement settlement) {
-        return settlementDao.querySettlement(settlement);
+    public HashMap<String, Object> querySettlement(Integer page, Integer rows, Settlement settlement) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        //查询总条数
+        int total = settlementDao.findSettlementCount(settlement);
+        //分页查询
+        int start = (page-1)*rows;//开始条数
+        List<Settlement> list = settlementDao.querySettlement(start, rows, settlement);
+        hashMap.put("total", total);
+        hashMap.put("rows", list);
+        return hashMap;
+
     }
 
     @Override

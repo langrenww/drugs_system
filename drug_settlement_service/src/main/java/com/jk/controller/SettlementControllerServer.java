@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -44,8 +45,8 @@ public class SettlementControllerServer implements SettlementService {
     @PostMapping("querySettlement")
     @ResponseBody
     @Override
-    public List<Settlement> querySettlement(@RequestBody Settlement settlement) {
-        return settlementServiceProvider.querySettlement(settlement);
+    public HashMap<String, Object> querySettlement(@RequestParam("page")Integer page, @RequestParam("rows")Integer rows, @RequestBody Settlement settlement) {
+        return settlementServiceProvider.querySettlement(page,rows,settlement);
     }
     /**
      * 申请结算 将可结算状态改为出账中状态
