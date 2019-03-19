@@ -19,4 +19,18 @@ public interface SettlementServiceProvider {
     List<OrderCount> queryOrderCount(OrderCount orderCount);
 
     List<OrderCount> querySuccessCount(OrderCount orderCount);
+
+    HashMap<String, Object> queryMerchants(Integer page, Integer rows, AgencyAndMerchants agencyAndMerchants);
+
+    List<District> queryProvince();
+
+    List<Type> queryOneType();
+
+    List<Type> queryType(Integer pid);
+
+    HashMap<String, Object> queryAgency(Integer page, Integer rows, AgencyAndMerchants agencyAndMerchants);
+
+    HashMap<String, Object> querySupply(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply);
+
+    HashMap<String, Object> queryPurchase(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply);
 }

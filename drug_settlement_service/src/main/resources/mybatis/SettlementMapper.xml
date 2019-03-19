@@ -157,4 +157,224 @@
     where settlement.order_id=salesorde.order_id and settlement.settlement_status in (3,4)
     </select>
 
+    <!--查询招商信息和代理信息时的条件-->
+    <sql id="searchMerchants">
+           /* 根据地区查询*/
+        <if test="agencyAndMerchants.districtId!=null and agencyAndMerchants.districtId!=''">
+
+            and (merchants.merchants_district_id in(
+            SELECT d4.id FROM drug_rc_district d1, drug_rc_district d2, drug_rc_district d3, drug_rc_district d4
+            where d4.pid=d3.id and d3.pid=d2.id  and d2.id=#{agencyAndMerchants.districtId} GROUP BY d4.id)
+            or	merchants.merchants_district_id in(
+            SELECT d3.id FROM drug_rc_district d1, drug_rc_district d2, drug_rc_district d3, drug_rc_district d4
+            where d4.pid=d3.id and d3.pid=d2.id and d2.pid=d1.pid  and d2.id=#{agencyAndMerchants.districtId} GROUP BY d3.id)
+            or	merchants.merchants_district_id in(
+            SELECT d2.id FROM drug_rc_district d1, drug_rc_district d2, drug_rc_district d3, drug_rc_district d4
+            where d4.pid=d3.id and d3.pid=d2.id and d2.pid=d1.pid  and d2.id=#{agencyAndMerchants.districtId} GROUP BY d2.id
+            ))
+        </if>
+          /*根据产品名称查询*/
+        <if test="agencyAndMerchants.productName!=null and agencyAndMerchants.productName!=''">
+            and merchants.merchants_product_name like '%${agencyAndMerchants.productName}%'
+        </if>
+          /*根据分类查询*/
+        <if test="agencyAndMerchants.classify!=null and agencyAndMerchants.classify!=''">
+            and merchants.merchants_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{agencyAndMerchants.classify}
+            or drug_type_pid=#{agencyAndMerchants.classify} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{agencyAndMerchants.classify}))
+        </if>
+          /*根据子分类查询*/
+        <if test="agencyAndMerchants.classifySon!=null and agencyAndMerchants.classifySon!=''">
+            and merchants.merchants_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{agencyAndMerchants.classifySon}
+            or drug_type_pid=#{agencyAndMerchants.classifySon} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{agencyAndMerchants.classifySon}))
+        </if>
+          /*根据孙分类查询*/
+        <if test="agencyAndMerchants.classifyGrandSon!=null and agencyAndMerchants.classifyGrandSon!=''">
+            and merchants.merchants_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{agencyAndMerchants.classifyGrandSon}
+            or drug_type_pid=#{agencyAndMerchants.classifyGrandSon} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{agencyAndMerchants.classifyGrandSon}))
+        </if>
+    </sql>
+        <!--查询满足条件的招商信息的个数-->
+    <select id="findMerchantsCount" resultType="int">
+        select count(1)          from merchants_information merchants,drug_rc_district district,drug_rc_district district2,drug_rc_district district3
+        where merchants.merchants_district_id = district3.id
+        and district3.pid=district2.id and district2.pid=district.id
+        <include refid="searchMerchants"></include>
+    </select>
+    <!--查询满足条件的招商信息-->
+    <select id="queryMerchants" resultType="com.jk.pojo.AgencyAndMerchants">
+    select
+        merchants.merchants_id id,
+        merchants.merchants_encoding encoding,
+        merchants.merchants_product_name  productName,
+        merchants.merchants_specification specification,
+        merchants.merchants_manufacturer manufacturer,
+        district.district districtProvinceName, /*省名称*/
+        district2.district districtCityName,    /*市名称*/
+        district3.district districtName,        /*区名称*/
+        merchants.release_date  releaseDate    /*发布日期*/
+        from merchants_information merchants,drug_rc_district district,drug_rc_district district2,drug_rc_district district3
+        where merchants.merchants_district_id = district3.id
+        and district3.pid=district2.id and district2.pid=district.id
+        <include refid="searchMerchants"></include>
+        limit #{start},#{rows}
+    </select>
+
+   <!-- 查询省区域-->
+    <select id="queryProvince" resultType="com.jk.pojo.District">
+        SELECT * FROM drug_rc_district d where d.pid=1
+    </select>
+
+   <!-- 查询一级分类-->
+    <select id="queryOneType" resultType="com.jk.pojo.Type">
+        SELECT drug_type_id id,drug_type_name name,drug_type_pid pid FROM drug_type where drug_type_pid =0
+    </select>
+    <!--根据父id查询二级和三级分类-->
+    <select id="queryType" parameterType="int" resultType="com.jk.pojo.Type">
+        select drug_type_id id,drug_type_name name,drug_type_pid pid FROM  drug_type where drug_type_pid =#{pid}
+    </select>
+
+    <!--查询招商信息和代理信息时的条件-->
+    <sql id="searchAgency">
+        /* 根据地区查询*/
+        <if test="agencyAndMerchants.districtId!=null and agencyAndMerchants.districtId!=''">
+            and (agency.agency_district_id in(
+            SELECT d4.id FROM drug_rc_district d1, drug_rc_district d2, drug_rc_district d3, drug_rc_district d4
+            where d4.pid=d3.id and d3.pid=d2.id  and d2.id=#{agencyAndMerchants.districtId} GROUP BY d4.id)
+            or	agency.agency_district_id in(
+            SELECT d3.id FROM drug_rc_district d1, drug_rc_district d2, drug_rc_district d3, drug_rc_district d4
+            where d4.pid=d3.id and d3.pid=d2.id and d2.pid=d1.pid  and d2.id=#{agencyAndMerchants.districtId} GROUP BY d3.id)
+            or	agency.agency_district_id in(
+            SELECT d2.id FROM drug_rc_district d1, drug_rc_district d2, drug_rc_district d3, drug_rc_district d4
+            where d4.pid=d3.id and d3.pid=d2.id and d2.pid=d1.pid  and d2.id=#{agencyAndMerchants.districtId} GROUP BY d2.id
+            ))
+        </if>
+        /*根据产品名称查询*/
+        <if test="agencyAndMerchants.productName!=null and agencyAndMerchants.productName!=''">
+            and agency.agency_product_name like '%${agencyAndMerchants.productName}%'
+        </if>
+        /*根据分类查询*/
+        <if test="agencyAndMerchants.classify!=null and agencyAndMerchants.classify!=''">
+            and agency.agency_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{agencyAndMerchants.classify}
+            or drug_type_pid=#{agencyAndMerchants.classify} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{agencyAndMerchants.classify}))
+        </if>
+        /*根据二级分类查询*/
+        <if test="agencyAndMerchants.classifySon!=null and agencyAndMerchants.classifySon!=''">
+            and agency.agency_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{agencyAndMerchants.classifySon}
+            or drug_type_pid=#{agencyAndMerchants.classifySon} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{agencyAndMerchants.classifySon}))
+        </if>
+        /*根据三级分类查询*/
+        <if test="agencyAndMerchants.classifyGrandSon!=null and agencyAndMerchants.classifyGrandSon!=''">
+            and agency.agency_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{agencyAndMerchants.classifyGrandSon}
+            or drug_type_pid=#{agencyAndMerchants.classifyGrandSon} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{agencyAndMerchants.classifyGrandSon}))
+        </if>
+    </sql>
+    <!--查询满足条件的代理信息的个数-->
+    <select id="findAgencyCount" resultType="int">
+        select count(1)          from agency_information agency,drug_rc_district district,drug_rc_district district2,drug_rc_district district3
+        where agency.agency_district_id = district3.id
+        and district3.pid=district2.id and district2.pid=district.id
+        <include refid="searchAgency"></include>
+    </select>
+    <!--查询满足条件的代理信息-->
+    <select id="queryAgency" resultType="com.jk.pojo.AgencyAndMerchants">
+        select
+        agency.agency_id id,
+        agency.agency_encoding encoding,
+        agency.agency_product_name  productName,
+        agency.agency_specification specification,
+        agency.agency_manufacturer manufacturer,
+        district.district districtProvinceName, /*省名称*/
+        district2.district districtCityName,    /*市名称*/
+        district3.district districtName,        /*区名称*/
+        agency.release_date  releaseDate    /*发布日期*/
+        from agency_information agency,drug_rc_district district,drug_rc_district district2,drug_rc_district district3
+        where agency.agency_district_id = district3.id
+        and district3.pid=district2.id and district2.pid=district.id
+        <include refid="searchAgency"></include>
+        limit #{start},#{rows}
+    </select>
+
+    <!--查询供应信息时的条件-->
+    <sql id="searchSupply">
+        /*根据分类查询*/
+        <if test="purchaseAndSupply.classify!=null and purchaseAndSupply.classify!=''">
+            and supply.supply_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{purchaseAndSupply.classify}
+            or drug_type_pid=#{purchaseAndSupply.classify} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{purchaseAndSupply.classify}))
+        </if>
+    </sql>
+    <!--查询满足条件的供应信息的个数-->
+        <select id="findSupplyCount" resultType="int">
+            select count(1)   from supply_information supply   where 1=1
+            <include refid="searchSupply"></include>
+        </select>
+    <!--查询满足条件的供应信息-->
+    <select id="querySupply" resultType="com.jk.pojo.PurchaseAndSupply">
+     select
+        supply.supply_id id,
+        supply.supply_product_name productName,
+        supply.supply_specification specification,
+        supply.supply_contact_number contactNumber,
+        supply.supply_contacts contacts,
+        supply.supply_quantity quantity,
+        supply.supply_classify classify,
+        supply.release_date releaseDate
+          from  supply_information supply
+          where 1=1
+        <include refid="searchSupply"></include>
+        limit #{start},#{rows}
+    </select>
+
+    <!--查询求购信息时的条件-->
+    <sql id="searchPurchase">
+        /*根据分类查询*/
+        <if test="purchaseAndSupply.classify!=null and purchaseAndSupply.classify!=''">
+            and purchase.purchase_classify in
+            (select drug_type_id from drug_type where drug_type_id=#{purchaseAndSupply.classify}
+            or drug_type_pid=#{purchaseAndSupply.classify} or
+            drug_type_pid in( select drug_type_id from drug_type where  drug_type_pid=
+            #{purchaseAndSupply.classify}))
+        </if>
+    </sql>
+    <!--查询满足条件的求购信息的个数-->
+    <select id="findPurchaseCount" resultType="int">
+        select count(1)   from purchase_information purchase   where 1=1
+        <include refid="searchPurchase"></include>
+    </select>
+    <!--查询满足条件的求购信息-->
+    <select id="queryPurchase" resultType="com.jk.pojo.PurchaseAndSupply">
+   select
+        purchase.purchase_id id,
+        purchase.purchase_product_name productName,
+        purchase.purchase_specification specification,
+        purchase.purchase_manufacturer manufacturer,
+        purchase.purchase_contacts contacts,
+        purchase.purchase_quantity quantity,
+        purchase.purchase_classify classify,
+        purchase.release_date releaseDate
+        from purchase_information purchase  where 1=1
+        <include refid="searchPurchase"></include>
+        limit #{start},#{rows}
+    </select>
+
 </mapper>

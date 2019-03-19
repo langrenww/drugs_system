@@ -100,4 +100,90 @@ public class SettlementControllerServer implements SettlementService {
     public List<OrderCount> querySuccessCount(@RequestBody  OrderCount orderCount) {
         return settlementServiceProvider.querySuccessCount(orderCount);
     }
+    /**
+     * 查询招商信息
+     * @param page
+     * @param rows
+     * @param agencyAndMerchants
+     * @return
+     */
+    @PostMapping("queryMerchants")
+    @ResponseBody
+    @Override
+    public HashMap<String, Object> queryMerchants(@RequestParam("page")Integer page, @RequestParam("rows")Integer rows, @RequestBody AgencyAndMerchants agencyAndMerchants) {
+        return settlementServiceProvider.queryMerchants(page,rows,agencyAndMerchants);
+    }
+    /**
+     * 查询省区域
+     * @return
+     */
+    @GetMapping("queryProvince")
+    @ResponseBody
+    @Override
+    public List<District> queryProvince() {
+        return settlementServiceProvider.queryProvince();
+    }
+    /**
+     * 查询一级分类
+     * @return
+     */
+    @GetMapping("queryOneType")
+    @ResponseBody
+    @Override
+    public List<Type> queryOneType() {
+        return settlementServiceProvider.queryOneType();
+    }
+    /**
+     * 根据父id查询二级和三级分类
+     * @return
+     */
+    @PostMapping("queryType")
+    @ResponseBody
+    @Override
+    public List<Type> queryType(@RequestParam("pid") Integer pid) {
+        return settlementServiceProvider.queryType(pid);
+    }
+
+    /**
+     * 查询代理信息
+     * @param page
+     * @param rows
+     * @param agencyAndMerchants
+     * @return
+     */
+    @PostMapping("queryAgency")
+    @ResponseBody
+    @Override
+    public HashMap<String, Object> queryAgency(@RequestParam("page")Integer page, @RequestParam("rows")Integer rows, @RequestBody AgencyAndMerchants agencyAndMerchants) {
+        return settlementServiceProvider.queryAgency(page,rows,agencyAndMerchants);
+    }
+
+    /**
+     * 查询供应信息
+     * @param page
+     * @param rows
+     * @param purchaseAndSupply
+     * @return
+     */
+    @PostMapping("querySupply")
+    @ResponseBody
+    @Override
+    public HashMap<String, Object> querySupply(@RequestParam("page")Integer page, @RequestParam("rows")Integer rows, @RequestBody PurchaseAndSupply purchaseAndSupply) {
+        return  settlementServiceProvider.querySupply(page,rows,purchaseAndSupply);
+    }
+
+    /**
+     * 查询求购信息
+     * @param page
+     * @param rows
+     * @param purchaseAndSupply
+     * @return
+     */
+    @PostMapping("queryPurchase")
+    @ResponseBody
+    @Override
+    public HashMap<String, Object> queryPurchase(@RequestParam("page")Integer page, @RequestParam("rows")Integer rows, @RequestBody PurchaseAndSupply purchaseAndSupply) {
+        return  settlementServiceProvider.queryPurchase(page,rows,purchaseAndSupply);
+    }
+
 }

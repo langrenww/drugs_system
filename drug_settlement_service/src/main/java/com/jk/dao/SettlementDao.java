@@ -1,9 +1,6 @@
 package com.jk.dao;
 
-import com.jk.pojo.BankCard;
-import com.jk.pojo.OrderCount;
-import com.jk.pojo.Settlement;
-import com.jk.pojo.Test;
+import com.jk.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,4 +26,26 @@ public interface SettlementDao {
     List<OrderCount> querySuccessCount(OrderCount orderCount);
 
     int findSettlementCount(@Param("settlement") Settlement settlement);
+
+    int findMerchantsCount(@Param("agencyAndMerchants") AgencyAndMerchants agencyAndMerchants);
+
+    List<AgencyAndMerchants> queryMerchants(@Param("start")int start, @Param("rows")Integer rows, @Param("agencyAndMerchants")AgencyAndMerchants agencyAndMerchants);
+
+    List<District> queryProvince();
+
+    List<Type> queryOneType();
+
+    List<Type> queryType(Integer pid);
+
+    int findAgencyCount(@Param("agencyAndMerchants")AgencyAndMerchants agencyAndMerchants);
+
+    List<AgencyAndMerchants> queryAgency(@Param("start")int start, @Param("rows")Integer rows, @Param("agencyAndMerchants")AgencyAndMerchants agencyAndMerchants);
+
+    int findSupplyCount(@Param("purchaseAndSupply")PurchaseAndSupply purchaseAndSupply);
+
+    List<PurchaseAndSupply> querySupply(@Param("start")int start, @Param("rows")Integer rows, @Param("purchaseAndSupply")PurchaseAndSupply purchaseAndSupply);
+
+    int findPurchaseCount(@Param("purchaseAndSupply")PurchaseAndSupply purchaseAndSupply);
+
+    List<PurchaseAndSupply> queryPurchase(@Param("start")int start, @Param("rows")Integer rows, @Param("purchaseAndSupply")PurchaseAndSupply purchaseAndSupply);
 }

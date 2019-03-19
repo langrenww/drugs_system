@@ -98,4 +98,86 @@ public class SettlementController {
         return settlementServiceConsumer.querySuccessCount(orderCount);
     }
 
+    /**
+     * 查询招商信息
+     * @param page
+     * @param rows
+     * @param agencyAndMerchants
+     * @return
+     */
+    @GetMapping("queryMerchants")
+    @ResponseBody
+    public HashMap<String, Object> queryMerchants(Integer page, Integer rows, AgencyAndMerchants agencyAndMerchants){
+        return settlementServiceConsumer.queryMerchants(page,rows,agencyAndMerchants);
+    }
+
+    /**
+     * 查询省区域
+     * @return
+     */
+    @GetMapping("queryProvince")
+    @ResponseBody
+    public  List<District> queryProvince(){
+        return settlementServiceConsumer.queryProvince();
+    }
+
+    /**
+     * 查询一级分类
+     * @return
+     */
+    @GetMapping("queryOneType")
+    @ResponseBody
+    public  List<Type> queryOneType(){
+        return settlementServiceConsumer.queryOneType();
+    }
+
+    /**
+     * 根据父id查询二级和三级分类
+     * @return
+     */
+    @GetMapping("queryType")
+    @ResponseBody
+    public  List<Type> queryType(Integer pid){
+        return settlementServiceConsumer.queryType(pid);
+    }
+
+    /**
+     * 查询代理信息
+     * @param page
+     * @param rows
+     * @param agencyAndMerchants
+     * @return
+     */
+    @GetMapping("queryAgency")
+    @ResponseBody
+    public HashMap<String, Object> queryAgency(Integer page, Integer rows, AgencyAndMerchants agencyAndMerchants){
+        return settlementServiceConsumer.queryAgency(page,rows,agencyAndMerchants);
+    }
+
+    /**
+     * 查询供应信息
+     * @param page
+     * @param rows
+     * @param purchaseAndSupply
+     * @return
+     */
+    @GetMapping("querySupply")
+    @ResponseBody
+    public HashMap<String, Object> querySupply(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply){
+        return settlementServiceConsumer.querySupply(page,rows,purchaseAndSupply);
+    }
+
+    /**
+     * 查询求购信息
+     * @param page
+     * @param rows
+     * @param purchaseAndSupply
+     * @return
+     */
+    @GetMapping("queryPurchase")
+    @ResponseBody
+    public HashMap<String, Object> queryPurchase(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply){
+        return settlementServiceConsumer.queryPurchase(page,rows,purchaseAndSupply);
+    }
+
 }

@@ -71,4 +71,72 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
         return settlementDao.querySuccessCount(orderCount);
     }
 
+    @Override
+    public HashMap<String, Object> queryMerchants(Integer page, Integer rows, AgencyAndMerchants agencyAndMerchants) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        //查询总条数
+        int total = settlementDao.findMerchantsCount(agencyAndMerchants);
+        //分页查询
+        int start = (page-1)*rows;//开始条数
+          List<AgencyAndMerchants> list = settlementDao.queryMerchants(start, rows, agencyAndMerchants);
+        hashMap.put("total", total);
+        hashMap.put("rows", list);
+        return hashMap;
+    }
+
+    @Override
+    public List<District> queryProvince() {
+        return settlementDao.queryProvince();
+    }
+
+    @Override
+    public List<Type> queryOneType() {
+        return settlementDao.queryOneType();
+    }
+
+    @Override
+    public List<Type> queryType(Integer pid) {
+        return settlementDao.queryType(pid);
+    }
+
+    @Override
+    public HashMap<String, Object> queryAgency(Integer page, Integer rows, AgencyAndMerchants agencyAndMerchants) {
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        //查询总条数
+        int total = settlementDao.findAgencyCount(agencyAndMerchants);
+        //分页查询
+        int start = (page-1)*rows;//开始条数
+        List<AgencyAndMerchants> list = settlementDao.queryAgency(start, rows, agencyAndMerchants);
+        hashMap.put("total", total);
+        hashMap.put("rows", list);
+        return hashMap;
+    }
+
+    @Override
+    public HashMap<String, Object> querySupply(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        //查询总条数
+        int total = settlementDao.findSupplyCount(purchaseAndSupply);
+        //分页查询
+        int start = (page-1)*rows;//开始条数
+        List<PurchaseAndSupply> list = settlementDao.querySupply(start, rows, purchaseAndSupply);
+        hashMap.put("total", total);
+        hashMap.put("rows", list);
+        return hashMap;
+    }
+
+    @Override
+    public HashMap<String, Object> queryPurchase(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        //查询总条数
+        int total = settlementDao.findPurchaseCount(purchaseAndSupply);
+        //分页查询
+        int start = (page-1)*rows;//开始条数
+        List<PurchaseAndSupply> list = settlementDao.queryPurchase(start, rows, purchaseAndSupply);
+        hashMap.put("total", total);
+        hashMap.put("rows", list);
+        return hashMap;
+    }
+
 }
