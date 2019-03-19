@@ -8,5 +8,12 @@
         select * from drug_tree where pid = #{pid}
     </select>
 
+    <select id="queryDrugById" resultType="com.jk.pojo.ShoppingCart">
+      SELECT dr.drug_id drugId,dr.drug_name drugName,dr.drug_img drugImg,
+      dr.drug_commercial_specifications drugSize,dr.drug_manufacturer drugManufacturer,
+      dr.drug_price drugMoney
+      FROM drug_drug  dr where dr.drug_id = #{drugId}
+    </select>
+
 
 </mapper>

@@ -2,7 +2,7 @@ package com.jk.pojo;
 
 import java.util.List;
 
-public class Tree {
+public class Tree  {
 
 	private String id;
 	private String text;
