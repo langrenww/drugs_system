@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -177,7 +178,7 @@ public class SettlementController {
     @GetMapping("queryPurchase")
     @ResponseBody
     public HashMap<String, Object> queryPurchase(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply){
-        return settlementServiceConsumer.queryPurchase(page,rows,purchaseAndSupply);
+        return settlementServiceConsumer.queryPurchase(page, rows, purchaseAndSupply);
     }
 
 }

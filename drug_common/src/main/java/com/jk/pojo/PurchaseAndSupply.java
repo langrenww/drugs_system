@@ -9,14 +9,32 @@ public class PurchaseAndSupply {
     private   Integer          id; //主键
     private  String        productName;//产品名称
     private  String        specification;//规格
-    private   Integer         manufacturer;//生产厂家
-    private Integer     contactNumber;//联系电话
+    private   String         manufacturer;//生产厂家
+    private String     contactNumber;//联系电话
     private  String      contacts;//联系人
     private   Integer         quantity;//数量
     private   Integer  classify;//分类
+    private String classifyName;//分类名称
+    private Integer dateSort;//按照数量或者时间排序 1数量 2时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;//发布日期
+
+    public Integer getDateSort() {
+        return dateSort;
+    }
+
+    public void setDateSort(Integer dateSort) {
+        this.dateSort = dateSort;
+    }
+
+    public String getClassifyName() {
+        return classifyName;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
+    }
 
     public Integer getId() {
         return id;
@@ -42,19 +60,19 @@ public class PurchaseAndSupply {
         this.specification = specification;
     }
 
-    public Integer getManufacturer() {
+    public String  getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(Integer manufacturer) {
+    public void setManufacturer(String  manufacturer) {
         this.manufacturer = manufacturer;
     }
 
-    public Integer getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(Integer contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
@@ -101,6 +119,8 @@ public class PurchaseAndSupply {
                 ", contacts='" + contacts + '\'' +
                 ", quantity=" + quantity +
                 ", classify=" + classify +
+                ", classifyName='" + classifyName + '\'' +
+                ", dateSort='" + dateSort + '\'' +
                 ", releaseDate=" + releaseDate +
                 '}';
     }

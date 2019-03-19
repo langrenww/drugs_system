@@ -18,9 +18,24 @@ public class AgencyAndMerchants {
     private   Integer classify;//分类
     private Integer classifySon;//子分类
     private Integer classifyGrandSon;//孙分类
+    private Integer dateSort;//1按照时间升序 2按照时间降序
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
+
+
+
+    public Integer getDateSort() {
+        return dateSort;
+    }
+
+    public void setDateSort(Integer dateSort) {
+        this.dateSort = dateSort;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
 
     public void setDistrictName(String districtName) {
         this.districtName = districtName;
@@ -139,6 +154,7 @@ public class AgencyAndMerchants {
                 ", classifySon=" + classifySon +
                 ", classifyGrandSon=" + classifyGrandSon +
                 ", releaseDate=" + releaseDate +
+                ", dateSort=" + dateSort +
                 '}';
     }
 }

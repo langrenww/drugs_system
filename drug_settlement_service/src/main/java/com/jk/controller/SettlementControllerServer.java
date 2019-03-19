@@ -121,7 +121,9 @@ public class SettlementControllerServer implements SettlementService {
     @ResponseBody
     @Override
     public List<District> queryProvince() {
-        return settlementServiceProvider.queryProvince();
+
+        List<District> districts = settlementServiceProvider.queryProvince();
+        return districts;
     }
     /**
      * 查询一级分类

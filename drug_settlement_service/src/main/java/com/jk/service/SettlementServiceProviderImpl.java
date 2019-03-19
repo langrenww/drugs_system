@@ -5,6 +5,7 @@ import com.jk.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,10 @@ import java.util.List;
 public class SettlementServiceProviderImpl implements SettlementServiceProvider{
     @Autowired
     private SettlementDao settlementDao;
+
+    @Autowired
+    private HttpSession session;
+
     @Override
     public List<Test> test() {
        return settlementDao.test();
@@ -96,7 +101,9 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
 
     @Override
     public List<Type> queryType(Integer pid) {
+        if(pid!=null && pid!=0){
         return settlementDao.queryType(pid);
+        }else{return null;}
     }
 
     @Override
@@ -121,6 +128,12 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
         //分页查询
         int start = (page-1)*rows;//开始条数
         List<PurchaseAndSupply> list = settlementDao.querySupply(start, rows, purchaseAndSupply);
+        Object user = session.getAttribute("user");
+        if(user==null){
+            for(PurchaseAndSupply purchaseAndSupply2:list){
+                purchaseAndSupply2.setContactNumber("请登陆查看");
+            }
+        }
         hashMap.put("total", total);
         hashMap.put("rows", list);
         return hashMap;
@@ -134,6 +147,12 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
         //分页查询
         int start = (page-1)*rows;//开始条数
         List<PurchaseAndSupply> list = settlementDao.queryPurchase(start, rows, purchaseAndSupply);
+        Object user = session.getAttribute("user");
+        if(user==null){
+            for(PurchaseAndSupply purchaseAndSupply2:list){
+                purchaseAndSupply2.setManufacturer("请登陆查看");
+            }
+        }
         hashMap.put("total", total);
         hashMap.put("rows", list);
         return hashMap;

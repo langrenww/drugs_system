@@ -202,6 +202,17 @@
             #{agencyAndMerchants.classifyGrandSon}))
         </if>
     </sql>
+
+    <sql id="orderBy">
+        <if test="agencyAndMerchants.dateSort!=null and agencyAndMerchants.dateSort!=''">
+            <if test="agencyAndMerchants.dateSort==1">
+                order by releaseDate
+            </if>
+            <if test="agencyAndMerchants.dateSort==2">
+                order by releaseDate desc
+            </if>
+        </if>
+    </sql>
         <!--查询满足条件的招商信息的个数-->
     <select id="findMerchantsCount" resultType="int">
         select count(1)          from merchants_information merchants,drug_rc_district district,drug_rc_district district2,drug_rc_district district3
@@ -225,6 +236,7 @@
         where merchants.merchants_district_id = district3.id
         and district3.pid=district2.id and district2.pid=district.id
         <include refid="searchMerchants"></include>
+        <include refid="orderBy"></include>
         limit #{start},#{rows}
     </select>
 
@@ -309,11 +321,16 @@
         where agency.agency_district_id = district3.id
         and district3.pid=district2.id and district2.pid=district.id
         <include refid="searchAgency"></include>
+        <include refid="orderBy"></include>
         limit #{start},#{rows}
     </select>
 
     <!--查询供应信息时的条件-->
     <sql id="searchSupply">
+        /*根据产品名称查询*/
+        <if test="purchaseAndSupply.productName!=null and purchaseAndSupply.productName!=''">
+            and supply.supply_product_name like '%${purchaseAndSupply.productName}%'
+        </if>
         /*根据分类查询*/
         <if test="purchaseAndSupply.classify!=null and purchaseAndSupply.classify!=''">
             and supply.supply_classify in
@@ -323,6 +340,18 @@
             #{purchaseAndSupply.classify}))
         </if>
     </sql>
+
+    <sql id="orderByQuantity">
+        <if test="purchaseAndSupply.dateSort!=null and purchaseAndSupply.dateSort!=''">
+            <if test="purchaseAndSupply.dateSort==1">
+                order by quantity desc
+            </if>
+            <if test="purchaseAndSupply.dateSort==2">
+                order by releaseDate desc
+            </if>
+        </if>
+    </sql>
+
     <!--查询满足条件的供应信息的个数-->
         <select id="findSupplyCount" resultType="int">
             select count(1)   from supply_information supply   where 1=1
@@ -330,7 +359,7 @@
         </select>
     <!--查询满足条件的供应信息-->
     <select id="querySupply" resultType="com.jk.pojo.PurchaseAndSupply">
-     select
+        select
         supply.supply_id id,
         supply.supply_product_name productName,
         supply.supply_specification specification,
@@ -338,15 +367,22 @@
         supply.supply_contacts contacts,
         supply.supply_quantity quantity,
         supply.supply_classify classify,
+        dtype.drug_type_name classifyName,
         supply.release_date releaseDate
-          from  supply_information supply
+        from  supply_information supply
+        left join drug_type dtype on supply.supply_classify=dtype.drug_type_id
           where 1=1
         <include refid="searchSupply"></include>
+        <include refid="orderByQuantity"></include>
         limit #{start},#{rows}
     </select>
 
     <!--查询求购信息时的条件-->
     <sql id="searchPurchase">
+        /*根据产品名称查询*/
+        <if test="purchaseAndSupply.productName!=null and purchaseAndSupply.productName!=''">
+            and purchase.purchase_product_name like '%${purchaseAndSupply.productName}%'
+        </if>
         /*根据分类查询*/
         <if test="purchaseAndSupply.classify!=null and purchaseAndSupply.classify!=''">
             and purchase.purchase_classify in
@@ -371,9 +407,13 @@
         purchase.purchase_contacts contacts,
         purchase.purchase_quantity quantity,
         purchase.purchase_classify classify,
+        dtype.drug_type_name classifyName,
         purchase.release_date releaseDate
-        from purchase_information purchase  where 1=1
+        from purchase_information purchase
+        left join drug_type dtype on purchase.purchase_classify=dtype.drug_type_id
+         where 1=1
         <include refid="searchPurchase"></include>
+        <include refid="orderByQuantity"></include>
         limit #{start},#{rows}
     </select>
 
