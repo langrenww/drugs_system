@@ -18,6 +18,8 @@ public class ProductAgency {
     private String contactPhone;
     private String contactAddress;
     private Integer drugTypeName;
+    private Integer rcDistrictId;
+    private Integer productStatus;
 
 
     public Integer getProductId() {
@@ -124,6 +126,22 @@ public class ProductAgency {
         this.drugTypeName = drugTypeName;
     }
 
+    public Integer getRcDistrictId() {
+        return rcDistrictId;
+    }
+
+    public void setRcDistrictId(Integer rcDistrictId) {
+        this.rcDistrictId = rcDistrictId;
+    }
+
+    public Integer getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(Integer productStatus) {
+        this.productStatus = productStatus;
+    }
+
     @Override
     public String toString() {
         return "ProductAgency{" +
@@ -140,6 +158,8 @@ public class ProductAgency {
                 ", contactPhone='" + contactPhone + '\'' +
                 ", contactAddress='" + contactAddress + '\'' +
                 ", drugTypeName=" + drugTypeName +
+                ", rcDistrictId=" + rcDistrictId +
+                ", productStatus=" + productStatus +
                 '}';
     }
 }
