@@ -126,4 +126,11 @@ public interface SettlementService {
      */
     @PostMapping("queryPurchase")
     HashMap<String, Object> queryPurchase(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows, @RequestBody PurchaseAndSupply purchaseAndSupply);
+
+    /**
+     * 申请成为供应商
+     * @param supplier
+     */
+    @PostMapping("saveSupplier")
+    void saveSupplier(Supplier supplier);
 }

@@ -187,5 +187,11 @@ public class SettlementControllerServer implements SettlementService {
     public HashMap<String, Object> queryPurchase(@RequestParam("page")Integer page, @RequestParam("rows")Integer rows, @RequestBody PurchaseAndSupply purchaseAndSupply) {
         return  settlementServiceProvider.queryPurchase(page,rows,purchaseAndSupply);
     }
+    @PostMapping("saveSupplier")
+    @ResponseBody
+    @Override
+    public void saveSupplier(@RequestBody Supplier supplier) {
+        settlementServiceProvider.saveSupplier(supplier);
+    }
 
 }

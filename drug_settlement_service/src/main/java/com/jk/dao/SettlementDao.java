@@ -48,4 +48,6 @@ public interface SettlementDao {
     int findPurchaseCount(@Param("purchaseAndSupply")PurchaseAndSupply purchaseAndSupply);
 
     List<PurchaseAndSupply> queryPurchase(@Param("start")int start, @Param("rows")Integer rows, @Param("purchaseAndSupply")PurchaseAndSupply purchaseAndSupply);
+
+    void saveSupplier(Supplier supplier);
 }

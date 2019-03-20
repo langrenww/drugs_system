@@ -181,4 +181,15 @@ public class SettlementController {
         return settlementServiceConsumer.queryPurchase(page, rows, purchaseAndSupply);
     }
 
+    /**
+     * 申请成为供应商
+     * @param supplier
+     */
+    @PostMapping("saveSupplier")
+    @ResponseBody
+    public void saveSupplier(Supplier supplier){
+        settlementServiceConsumer.saveSupplier(supplier);
+
+    }
+
 }

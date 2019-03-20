@@ -158,4 +158,9 @@ public class SettlementServiceProviderImpl implements SettlementServiceProvider{
         return hashMap;
     }
 
+    @Override
+    public void saveSupplier(Supplier supplier) {
+        settlementDao.saveSupplier(supplier);
+    }
+
 }

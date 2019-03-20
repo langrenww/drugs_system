@@ -417,4 +417,11 @@
         limit #{start},#{rows}
     </select>
 
+    <!--申请成为供应商-->
+    <insert id="saveSupplier" parameterType="com.jk.pojo.Supplier">
+        insert into supplier_mwl(login_name,contact_information,shop_name,phone_number,legal_representative,principal_number,
+principal,contact_address,company_name,organization_name,organization_type,drug_category,supply_type)
+            values(#{loginName},#{contactInformation},#{shopName},#{phoneNumber},#{legalRepresentative},#{principalNumber},
+            #{principal},#{contactAddress},#{companyName},#{organizationName},#{organizationType},#{drugCategory},#{supplyType})
+    </insert>
 </mapper>

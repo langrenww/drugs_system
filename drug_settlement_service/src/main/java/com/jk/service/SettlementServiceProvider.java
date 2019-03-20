@@ -33,4 +33,6 @@ public interface SettlementServiceProvider {
     HashMap<String, Object> querySupply(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply);
 
     HashMap<String, Object> queryPurchase(Integer page, Integer rows, PurchaseAndSupply purchaseAndSupply);
+
+    void saveSupplier(Supplier supplier);
 }
