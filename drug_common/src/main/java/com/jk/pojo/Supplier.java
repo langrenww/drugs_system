@@ -13,7 +13,7 @@ public class Supplier {
     private   String  companyName;         //公司名称
     private  String  organizationName;     //单位名称
     private  String organizationType;      //单位类型
-    private   String  drugCategory;        //药品经营种类
+    private   String  drugCategory;        //药品经营种类 1中西药品 2医疗器械 3成人用品 4中药饮片 5母婴用品 6滋补养生 7保健用品 8药品原料
     private   String  supplyType;          //供应类型
 
     public Integer getId() {
