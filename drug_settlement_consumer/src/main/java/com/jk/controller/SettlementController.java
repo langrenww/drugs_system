@@ -1,12 +1,15 @@
 package com.jk.controller;
 
 import com.jk.pojo.*;
+import com.jk.service.IOssService;
 import com.jk.service.SettlementServiceConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +17,9 @@ import java.util.List;
 public class SettlementController {
     @Autowired
     private SettlementServiceConsumer settlementServiceConsumer;
+
+    @Autowired
+    private IOssService iOssService;
 
     /**
      * 测试框架
@@ -190,6 +196,19 @@ public class SettlementController {
     public void saveSupplier(Supplier supplier){
         settlementServiceConsumer.saveSupplier(supplier);
 
+    }
+
+    @PostMapping("uploadimg")
+    @ResponseBody
+    public String uploadimg(MultipartFile file, HttpServletRequest request){
+        String img="";
+        try {
+           img =  iOssService.uploadImg(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return img;
     }
 
 }
