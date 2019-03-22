@@ -68,30 +68,38 @@
     <sql id="successTimeCondition">
         <if test="selectCountStatus==0">
             <!--本月-->
-            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  WHERE DATE_FORMAT(  product_orderTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) and order_status=1 group by product_orderTime
+            select IFNULL(a.successCount,0) successCount  from  (SELECT count(*) successCount,product_orderTime orderDate2 FROM drug_salesorde  WHERE DATE_FORMAT(  product_orderTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) and order_status=1 group by product_orderTime)a right join
+            (SELECT product_orderTime orderDate  FROM drug_salesorde  WHERE DATE_FORMAT(  product_orderTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )  group by product_orderTime)b on a.orderDate2=b.orderDate order by b.orderDate
         </if>
         <if test="selectCountStatus==7">
             <!--7天-->
-            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date( product_orderTime) and order_status=1 group by product_orderTime
+            select IFNULL(a.successCount,0) successCount  from    (SELECT count(*) successCount,product_orderTime orderDate2  FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(product_orderTime) and order_status=1 group by orderDate2)a right join
+            (SELECT product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date( product_orderTime) group by product_orderTime)b on a.orderDate2=b.orderDate
         </if>
         <if test="selectCountStatus==30">
             <!-- 近30天-->
-            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(product_orderTime) and order_status=1 group by product_orderTime
-        </if>
+            select IFNULL(a.successCount,0) successCount  from  (  SELECT count(*) successCount,product_orderTime orderDate2  FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(product_orderTime) and order_status=1 group by product_orderTime)a right join
+            (SELECT product_orderTime orderDate FROM drug_salesorde  where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(product_orderTime)  group by product_orderTime)b on a.orderDate2=b.orderDate order by b.orderDate
+               </if>
         <if test="selectCountStatus==-1 and startDate!=null and endDate!=null">
-            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime between #{startDate} and  #{endDate} and order_status=1 group by product_orderTime
-        </if>
+            select IFNULL(a.successCount,0) successCount   from  (SELECT count(*) successCount,product_orderTime orderDate2 FROM drug_salesorde  where product_orderTime between #{startDate} and  #{endDate} and order_status=1 group by product_orderTime)a right join
+            (SELECT product_orderTime orderDate FROM drug_salesorde  where product_orderTime between #{startDate} and  #{endDate} group by product_orderTime)b on a.orderDate2=b.orderDate order by b.orderDate
+            </if>
         <if test="selectCountStatus==-1 and endDate!=null and startDate==null">
-            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &lt; #{endDate} and order_status=1 group by product_orderTime
-        </if>
+            select IFNULL(a.successCount,0) successCount from (SELECT count(*) successCount,product_orderTime orderDate2 FROM drug_salesorde  where product_orderTime &lt; #{endDate} and order_status=1 group by product_orderTime)a right join
+            (SELECT product_orderTime orderDate FROM drug_salesorde  where product_orderTime &lt; #{endDate} group by product_orderTime)b on a.orderDate2=b.orderDate order by b.orderDate
+            </if>
         <if test="selectCountStatus==-1 and endDate==null and startDate!=null">
-            SELECT count(*) successCount,product_orderTime orderDate FROM drug_salesorde  where product_orderTime &gt; #{startDate} and order_status=1 group by product_orderTime
+            select IFNULL(a.successCount,0) successCount  from  (SELECT count(*) successCount,product_orderTime orderDate2 FROM drug_salesorde  where product_orderTime &gt; #{startDate} and order_status=1 group by product_orderTime) a right join
+            (SELECT product_orderTime orderDate FROM drug_salesorde  where product_orderTime &gt; #{startDate} group by product_orderTime)b on a.orderDate2=b.orderDate order by b.orderDate
         </if>
     </sql>
     <!--调用公共sql 查询成交量-->
     <select id="querySuccessCount" resultType="com.jk.pojo.OrderCount">
         <include refid="successTimeCondition" ></include>
     </select>
+
+
 
 
     <!--测试框架-->
@@ -133,6 +141,8 @@
 <include refid="search"></include>
         limit #{start},#{rows}
     </select>
+
+
     <!--申请结算 将可结算状态改为出账中状态-->
     <update id="applyettlement" parameterType="int">
      update drug_settlement set settlement_status = 3 ,application_date=now() where settlement_id=#{id}
@@ -156,6 +166,9 @@
     from drug_salesorde salesorde , drug_settlement settlement
     where settlement.order_id=salesorde.order_id and settlement.settlement_status in (3,4)
     </select>
+
+
+
 
     <!--查询招商信息和代理信息时的条件-->
     <sql id="searchMerchants">
